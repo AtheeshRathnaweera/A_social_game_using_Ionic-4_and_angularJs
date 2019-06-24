@@ -1,9 +1,26 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>register</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+    <div class="mainClass">
+      <ion-label class="pageTitle">REGISTER</ion-label>
 
-</ion-content>
+      <ion-item class="emailHolder">
+        <ion-icon name="person"></ion-icon> 
+        <ion-input type="text" [(ngModel)]="user.name" placeholder="Enter name"></ion-input>
+      </ion-item>
+  
+      <ion-item class="emailHolder">
+        <ion-icon name="mail"></ion-icon> 
+        <ion-input type="text" [(ngModel)]="user.email" placeholder="Enter email"></ion-input>
+      </ion-item>
+  
+      <ion-item class="emailHolder">
+        <ion-icon name="unlock"></ion-icon>
+        <ion-input type="text" [(ngModel)]="user.email" placeholder="Enter password"></ion-input>
+      </ion-item>
+      
+      <div>
+        <button class="logInBtn" ion-button  (click)="login()">Create the account</button>
+      </div>
+  
+    </div>
+  
+  </ion-content>
