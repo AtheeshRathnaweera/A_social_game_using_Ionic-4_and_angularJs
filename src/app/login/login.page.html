@@ -1,0 +1,28 @@
+<ion-footer>
+  <div class="signInBtnHolder">
+    <button class="signIn" ion-button  (click)="signin()">New here? Create an account now!</button>
+  </div>
+</ion-footer>
+
+<ion-content>
+  <div class="mainClass">
+    <ion-label class="pageTitle">LOG IN</ion-label>
+
+    <ion-item class="emailHolder">
+      <ion-icon name="mail"></ion-icon> 
+      <ion-input type="text" [(ngModel)]="user.email" placeholder="Enter email"></ion-input>
+    </ion-item>
+
+    <ion-item class="emailHolder">
+      <ion-icon name="unlock"></ion-icon>
+      <ion-input type="text" [(ngModel)]="user.email" placeholder="Enter password"></ion-input>
+    </ion-item>
+    
+    <div>
+      <button class="logInBtn" ion-button  (click)="login()">Log in</button>
+    </div>
+
+  </div>
+
+
+</ion-content>
