@@ -14,13 +14,14 @@ import { AngularFireAuthModule } from '@angular/fire/auth'
 
 import { environment } from '../environments/environment';
 
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule,
             IonicModule.forRoot(),
             AppRoutingModule,
-            AngularFireModule.initializeApp(environment.firebaseConfig),//Initializing the firebase account
+            AngularFireModule.initializeApp(environment.firebase),//Initializing the firebase account
             AngularFireAuthModule],
   providers: [
     StatusBar,

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  firebaseConfig : {
+  firebase: {
     apiKey: "AIzaSyAIfhFAacTniq-TE5PcnXexazmTZ_wEWIU",
     authDomain: "social-game-cf047.firebaseapp.com",
     databaseURL: "https://social-game-cf047.firebaseio.com",
@@ -13,6 +13,8 @@ export const environment = {
     messagingSenderId: "454151657450",
     appId: "1:454151657450:web:81e768e20a3eb605"
   }
+
+  
 
 };
 

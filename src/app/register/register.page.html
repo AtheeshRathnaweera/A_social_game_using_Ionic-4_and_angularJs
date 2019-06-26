@@ -9,16 +9,16 @@
   
       <ion-item class="emailHolder">
         <ion-icon name="mail"></ion-icon> 
-        <ion-input type="text" [(ngModel)]="user.email" placeholder="Enter email"></ion-input>
+        <ion-input type="email" [(ngModel)]="user.email" placeholder="Enter email"></ion-input>
       </ion-item>
   
       <ion-item class="emailHolder">
         <ion-icon name="unlock"></ion-icon>
-        <ion-input type="text" [(ngModel)]="user.email" placeholder="Enter password"></ion-input>
+        <ion-input type="password" [(ngModel)]="user.password" placeholder="Enter password"></ion-input>
       </ion-item>
       
       <div>
-        <button class="logInBtn" ion-button  (click)="login()">Create the account</button>
+        <button class="logInBtn" ion-button  (click)="createTheAccount()">Create the account</button>
       </div>
   
     </div>
