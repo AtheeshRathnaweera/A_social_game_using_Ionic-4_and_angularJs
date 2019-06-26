@@ -62,7 +62,7 @@ export class RegisterPage {
         toast.present();
 
         console.log("Successfully registered!"+r);
-       // this.router.navigateByUrl('/login')
+        this.router.navigateByUrl('/login')
       }
 
     } catch (err) {
