@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, AngularDelegate } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
+
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +17,7 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router: Router,
+    private faAuth: AngularFireAuth
   ) {
     this.initializeApp();
   }
@@ -24,8 +27,13 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      //this.router.navigate(['login'])
-      this.router.navigate(['home'])
+      this.faAuth.authState.subscribe(state=>{//check whether user is log in or not
+        if(state){
+          this.router.navigate(['home'])//go to the home page if logged in
+        }else{
+          this.router.navigate(['login'])//go to the login page else
+        }
+      })
 
 
     });
