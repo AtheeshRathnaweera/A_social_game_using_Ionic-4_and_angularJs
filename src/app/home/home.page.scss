@@ -1,1 +1,33 @@
+ion-header{
+    background-color: #306EFF;
+    display:flex;
+    flex-direction: row;
+
+   
+
+}
+.headerDateHolder{
+    align-items: center;
+    justify-content: flex-start;
+    align-content: center;
+}
+
+.headerContentHolder{
+    align-items: center;
+    justify-content: flex-end;
+    align-content: center;
+}
+
+
+.profileImg{
+    max-height: 72%;
+    max-width: 73%;
+    margin-top: 16%;
+    
+
+}
+
+.profileAvatar{
+
+}
 

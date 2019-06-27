@@ -1,7 +1,7 @@
 {
   "name": "socialgame",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
-
-

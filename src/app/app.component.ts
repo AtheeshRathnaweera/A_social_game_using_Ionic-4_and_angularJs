@@ -24,7 +24,8 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.router.navigate(['login'])
+      //this.router.navigate(['login'])
+      this.router.navigate(['home'])
 
 
     });
