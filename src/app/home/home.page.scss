@@ -6,6 +6,11 @@ ion-header{
    
 
 }
+
+.profileIcon{
+
+}
+
 .headerDateHolder{
     align-items: center;
     justify-content: flex-start;
@@ -19,11 +24,21 @@ ion-header{
 }
 
 
-.profileImg{
-    max-height: 72%;
-    max-width: 73%;
-    margin-top: 16%;
-    
+.profileIcon{
+    font-size: 210%;
+    margin-right: 11px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    color: aliceblue;
+
+}
+
+.menuIcon{
+    font-size: 180%;
+    margin-left: 15px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    color: aliceblue;
 
 }
 
