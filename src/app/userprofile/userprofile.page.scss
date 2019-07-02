@@ -42,14 +42,30 @@ ion-header{
     padding-bottom: 12px;
     padding-left: 18px;
     margin-top: 1%;
-    display: flex;
-    flex-direction: row;
+    display: block;
+    //flex-direction: row;
     
 }
 
 .valueText{
-    font-size: 16px;
+    font-size: 15px;
     font-style: oblique;
     float: right;
+    margin-right: 15px;
+    color: darkslategrey;
 
+}
+
+.logInBtn{
+    margin-top: 10%;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    padding-left: 7rem;
+    padding-right: 7rem;
+    border-radius: 20px !important;
+    width: 100%;
+    font-size: 17px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: darkorange;
+    color: white;
 }

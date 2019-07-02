@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AngularFireAuth } from '@angular/fire/auth';
+
 @Component({
   selector: 'app-userprofile',
   templateUrl: './userprofile.page.html',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserprofilePage implements OnInit {
 
-  constructor() { }
+  constructor(private fauth:AngularFireAuth) { }
 
   ngOnInit() {
+  }
+
+  logout() {
+    this.fauth.auth.signOut();
   }
 
 }

@@ -52,7 +52,7 @@ export class AppComponent {
     this.router.events.subscribe(event =>{
 
       const url = this.router.url //current url
-      
+    
       if (event instanceof NavigationEnd) {
       
         const isCurrentUrlSaved = this.navLinksArray.find((item) => {return item === url});
@@ -61,9 +61,13 @@ export class AppComponent {
       
       }// end event if stmt
       
-      }) // end subscribe
+    }) // end subscribe
 
-      this.hardwareBackButton();
+
+   
+    this.hardwareBackButton();
+   
+   
 
   }
 
@@ -72,20 +76,20 @@ export class AppComponent {
     this.platform.backButton.subscribe(() =>{
     
       if (this.navLinksArray.length > 1){
-        this.showToast(this.navLinksArray.length);
        
         this.navLinksArray.pop();
     
         const index = this.navLinksArray.length + 1;
         const url = this.navLinksArray[index];
+
+      
     
         this.router.navigate([url])
        
+      }else{
+        this.showToast(this.navLinksArray.length+" number");
       }
     
-      if(this.navLinksArray.length < 1){
-        this.showToast(this.navLinksArray.length);
-      }
    })
   }
 
