@@ -9,9 +9,10 @@ export const environment = {
     authDomain: "social-game-cf047.firebaseapp.com",
     databaseURL: "https://social-game-cf047.firebaseio.com",
     projectId: "social-game-cf047",
-    storageBucket: "",
+    storageBucket: "social-game-cf047.appspot.com",
     messagingSenderId: "454151657450",
     appId: "1:454151657450:web:81e768e20a3eb605"
+
   }
 
   

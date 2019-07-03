@@ -11,7 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth'
-
+import { AngularFirestoreModule } from '@angular/fire/firestore'
 import { environment } from '../environments/environment';
 
 
@@ -22,7 +22,8 @@ import { environment } from '../environments/environment';
             IonicModule.forRoot(),
             AppRoutingModule,
             AngularFireModule.initializeApp(environment.firebase),//Initializing the firebase account
-            AngularFireAuthModule],
+            AngularFireAuthModule,
+            AngularFirestoreModule.enablePersistence()],//This is important for use firestore
   providers: [
     StatusBar,
     SplashScreen,

@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
-import * as firebase from 'firebase/app';
+//import * as firebase from 'firebase/app';
 
 import { ToastController } from '@ionic/angular';
 import { timer } from 'rxjs';
@@ -25,7 +27,7 @@ export class RegisterPage {
 
   public user:User = new User();//Create a new user
 
-  constructor(private afauth:AngularFireAuth,private router: Router,public toastController: ToastController) { }
+  constructor(private afauth:AngularFireAuth,private router: Router,private db: AngularFirestore,public toastController: ToastController) { }
 
   async gettindData(){
     var r = await this.afauth.auth.createUserWithEmailAndPassword(
@@ -49,20 +51,32 @@ export class RegisterPage {
 
       // *://www.googleapis.com/*
       // *://*.googleapis.com:*/*
-
-
       console.log("r: "+r);
       
       if (r) {
 
-        const toast = await this.toastController.create({
-          message: 'Account created successfully!',
-          duration: 2000
-        });
-        toast.present();
+        var todayDate = new Date().toISOString().slice(0,10);
 
-        console.log("Successfully registered!"+r);
-        this.router.navigateByUrl('/login')
+        this.db.collection("users").add({
+          name: this.user.name,
+          email: this.user.email,
+          password: this.user.password,
+          profilePicUrl: "http://i.huffpost.com/gadgets/slideshows/257333/slide_257333_1650510_free.jpg",
+          joinedDate: todayDate
+
+        }).then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+          this.router.navigateByUrl('/login')
+
+        }).catch(function(error) {
+          console.error("Error adding document: ", error);
+          const toast = this.toastController.create({
+            message: 'Error occured when saving data!'+error.message,
+            duration: 2000
+          });
+          toast.present();
+        });
+
       }
 
     } catch (err) {
@@ -78,7 +92,7 @@ export class RegisterPage {
         toast.present();
       }else {
         const toast = await this.toastController.create({
-          message: 'Error occured! Please try again later!',
+          message: 'Error occured! Please try again later!'+errorCode,
           duration: 2000
         });
         toast.present();
@@ -86,8 +100,6 @@ export class RegisterPage {
 
       
     }
-
-    
 
     //do the google log in here
   }

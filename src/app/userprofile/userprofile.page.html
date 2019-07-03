@@ -12,15 +12,15 @@
     <ion-avatar class = "profileImage">
       <img  src="http://i.huffpost.com/gadgets/slideshows/257333/slide_257333_1650510_free.jpg">
     </ion-avatar>
-    <ion-label class="userId">atheesh_27</ion-label> 
+    <ion-label class="userId">{{profile.name}}</ion-label> 
     <div class="profileItem">
         <ion-label>Since</ion-label>
-        <ion-label class="valueText">Jan 15, 2019</ion-label>
+        <ion-label class="valueText" >{{profile.since}}</ion-label>
     </div>
 
     <div class="profileItem">
         <ion-label >Total Comments</ion-label>
-        <ion-label class="valueText">45</ion-label>
+        <ion-label class="valueText">{{profile.totalComments}}</ion-label>
     </div>
 
     <div>

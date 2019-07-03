@@ -63,12 +63,8 @@ export class AppComponent {
       
     }) // end subscribe
 
-
-   
     this.hardwareBackButton();
    
-   
-
   }
 
   hardwareBackButton (){
@@ -81,8 +77,6 @@ export class AppComponent {
     
         const index = this.navLinksArray.length + 1;
         const url = this.navLinksArray[index];
-
-      
     
         this.router.navigate([url])
        
@@ -99,7 +93,6 @@ export class AppComponent {
       duration: 2000
     });
     toast.present();
-
   }
 
 
