@@ -1,5 +1,5 @@
 ion-header{
-    background-color: #306EFF;
+    background-color: rgb(37, 174, 179);
     display:flex;
     flex-direction: row;
 }
@@ -41,8 +41,8 @@ ion-title{
 }
 
 .profileItem{
-    border-radius: 15px !important;
-    background-color: rgb(205, 228, 227);
+    border-radius: 10px !important;
+    background-color: rgb(220, 224, 224);
     width: 93%;
     padding-top: 12px;
     padding-bottom: 12px;
@@ -55,10 +55,10 @@ ion-title{
 
 .valueText{
     font-size: 15px;
-    font-style: oblique;
+    font-style: inherit;
     float: right;
     margin-right: 15px;
-    color: darkslategrey;
+    color: rgb(24, 126, 129);
 
 }
 
@@ -72,6 +72,6 @@ ion-title{
     width: 100%;
     font-size: 17px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    background-color: darkorange;
+    background-color: rgb(37, 174, 179);
     color: white;
 }

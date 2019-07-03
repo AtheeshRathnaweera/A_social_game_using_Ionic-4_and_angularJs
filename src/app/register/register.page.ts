@@ -57,24 +57,23 @@ export class RegisterPage {
 
         var todayDate = new Date().toISOString().slice(0,10);
 
-        this.db.collection("users").add({
+        this.db.collection("users").doc(this.user.email).set({//Used the email as the id
           name: this.user.name,
-          email: this.user.email,
+          email: this.user.email.toLowerCase(),//lowercase the email for avoid login failures ||| emails are not case sensitive
           password: this.user.password,
-          profilePicUrl: "http://i.huffpost.com/gadgets/slideshows/257333/slide_257333_1650510_free.jpg",
-          joinedDate: todayDate
+          profilePicUrl: "https://yt3.ggpht.com/-MVZBfegWiSw/AAAAAAAAAAI/AAAAAAAAAAA/i5EjUPXxSe4/s900-c-k-no-mo-rj-c0xffffff/photo.jpg",
+          since: todayDate,
+          totalComments: 0
 
-        }).then(function(docRef) {
-          console.log("Document written with ID: ", docRef.id);
+        }).then(function() {
+         // console.log("Document written with ID: ");
+         //Account created successfully
           this.router.navigateByUrl('/login')
 
         }).catch(function(error) {
           console.error("Error adding document: ", error);
-          const toast = this.toastController.create({
-            message: 'Error occured when saving data!'+error.message,
-            duration: 2000
-          });
-          toast.present();
+
+          this.showToastMessage('Error occured when saving data!',error.message)
         });
 
       }
@@ -85,17 +84,9 @@ export class RegisterPage {
       console.error("This is the Error occured : "+errorCode+"  "+errorMessage);
 
       if(errorCode == "auth/invalid-email"){
-        const toast = await this.toastController.create({
-          message: 'Invalid email address. Please enter a valid email!',
-          duration: 2000
-        });
-        toast.present();
+        this.showToastMessage('Invalid email address. Please enter a valid email!',null)
       }else {
-        const toast = await this.toastController.create({
-          message: 'Error occured! Please try again later!'+errorCode,
-          duration: 2000
-        });
-        toast.present();
+        this.showToastMessage('Error occured! Please try again later!',errorCode)
       }
 
       
@@ -103,6 +94,18 @@ export class RegisterPage {
 
     //do the google log in here
   }
+
+  async showToastMessage(message, errorMsg){
+    const toast = await this.toastController.create({
+      message: 'Error occured! Please try again later!'+errorMsg,
+      duration: 2000
+    });
+    toast.present();
+
+
+  }
+
+
 
 
 }
