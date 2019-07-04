@@ -8,8 +8,25 @@
   
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
+  <div class="todaysPhotoHolder">
+
+    <ion-badge color="success" class="dateBadge">2019 Jul 07</ion-badge>
+
+    <img class="imageSrc" src="https://www.thedailystar.net/sites/default/files/feature/images/sanga.jpg-ns.jpg">
+
+    <div class="photoDataHolder">
+      <ion-icon name="heart-empty" class="likeIcon"></ion-icon>
+      <ion-label class="numberOfLikes">23</ion-label>
+      <ion-label class="commentsLabel">comments</ion-label>
+      <ion-label class="numberOfComments">45</ion-label>
+    </div>
+
+    <button class="commentBtn" ion-button  (click)="presentModal()">Add a comment...</button>
+
+    <div class="topCommentsSection">
+      <ion-label class="topCommentsLabel">Top comments</ion-label>
+
+    </div>
+
   </div>
 </ion-content>

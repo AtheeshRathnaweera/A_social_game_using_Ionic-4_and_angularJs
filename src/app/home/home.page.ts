@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 import * as firebase from '@angular/fire';
 import { FirebaseAuth } from '@angular/fire';
+
+import { AddacommentPage } from '../addacomment/addacomment.page';
 
 @Component({
   selector: 'app-home',
@@ -15,8 +18,17 @@ export class HomePage {
 
   userEmail:string
 
-  constructor(public toastController: ToastController,private router: Router,private fauth:AngularFireAuth) {
+  constructor(public toastController: ToastController,private router: Router,private fauth:AngularFireAuth,public modalController: ModalController) {
       this.getCurrentUserEmail()
+  }
+
+  async presentModal() {
+    
+    const modal = await this.modalController.create({
+      component: AddacommentPage
+    });
+
+    return await modal.present();
   }
 
   async seeProfile(){

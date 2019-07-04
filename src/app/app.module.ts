@@ -25,6 +25,7 @@ import { FirebaseAuth} from '@angular/fire'
             AngularFireModule.initializeApp(environment.firebase),//Initializing the firebase account
             AngularFireAuthModule,
             AngularFirestoreModule.enablePersistence()],//This is important for use firestore
+            
   providers: [
     StatusBar,
     SplashScreen,
