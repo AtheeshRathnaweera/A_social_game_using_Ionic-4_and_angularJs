@@ -43,9 +43,10 @@ ion-header{
     padding-left: 8px;
     padding-bottom: 8px;
     background-color: white;
-    box-shadow: 5px 5px 5px #999; 
-    -moz-box-shadow: 5px 5px 5px #999;
-    -webkit-box-shadow: 5px 5px 5px #999;
+    box-shadow: 2px 2px 3px 3px #999; 
+    -moz-box-shadow: 2px 2px 3px 3px #999;
+    -webkit-box-shadow: 2px 2px 3px 3px #999;
+    max-height: 90%;
 }
 
 .imageSrc{
@@ -58,32 +59,37 @@ ion-header{
     //flex-direction: row;
     display: block;
     text-align: justify;
+    margin-top: 6px;
+    margin-bottom: 5px;
 
 }
 
 .dateBadge{
     float: left;
-    padding: 7px;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    width: 30%;
+    width: 10em;
+}
+
+.dateLabel{
+    font-size: 1.2em;
+    margin-top: 3px;
 }
 
 .likeIcon{
     float: left;
-    font-size:1.7em;
+    font-size:1.8em;
 }
 
 .numberOfLikes{
-    margin-left: 0.2em;
+    margin-left: 0.3em;
     color: rgb(85, 82, 82);
+    font-size: 1.1em;
 }
 
 .commentsLabel{
     float: right;
     font-style: oblique;
     color: rgb(85, 82, 82);
+    font-size: 1.1em;
 }
 
 .numberOfComments{
@@ -91,6 +97,7 @@ ion-header{
     margin-right: 3px;
     font-style: oblique;
     color: rgb(85, 82, 82);
+    font-size: 1.1em;
 }
 
 
@@ -114,6 +121,62 @@ ion-header{
     display: flex;
     flex-direction: column;
 }
+
+.commentHolder{
+    display: flex;
+    flex-direction: row;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.topCommentsLabel{
+    font-size: 1.1em;
+}
+
+ion-label{
+    font-size: 1.1em;
+}
+
+.comment{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    width: 77%;
+}
+
+.commentator{
+    font-size: 1.50em;
+
+}
+
+.photoHolder{
+    display: flex;
+    flex-direction: column;
+}
+
+.totalLikes{
+    margin-left: 28%;
+    font-size: 2em;
+
+
+}
+
+ionic-avatar{
+    margin-top: 25px;
+}
+
+.commentText{
+    font-size: 1.1em;
+    margin-bottom: 8px;
+    margin-left: 7px;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+
+
 
 
 

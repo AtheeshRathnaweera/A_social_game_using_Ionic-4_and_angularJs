@@ -8,25 +8,45 @@
   
 
 <ion-content>
-  <div class="todaysPhotoHolder">
+  <ion-card class="todaysPhotoHolder">
 
-    <ion-badge color="success" class="dateBadge">2019 Jul 07</ion-badge>
+    <ion-chip outline color="success" class="dateBadge">
+        <ion-icon name="calendar"></ion-icon>
+        <ion-label class="dateLabel">{{(receivedPostData|async)?.date}}</ion-label>
+    </ion-chip>
 
-    <img class="imageSrc" src="https://www.thedailystar.net/sites/default/files/feature/images/sanga.jpg-ns.jpg">
+    <img class="imageSrc" src={{(receivedPostData|async)?.url}}>
 
     <div class="photoDataHolder">
-      <ion-icon name="heart-empty" class="likeIcon"></ion-icon>
-      <ion-label class="numberOfLikes">23</ion-label>
+      <ion-icon name="heart-empty" class="likeIcon" (click)="presentModal()"></ion-icon>
+      <ion-label class="numberOfLikes">{{(receivedPostData|async)?.likes}}</ion-label>
       <ion-label class="commentsLabel">comments</ion-label>
-      <ion-label class="numberOfComments">45</ion-label>
+      <ion-label class="numberOfComments">{{(receivedPostData|async)?.totalcomments}}</ion-label>
     </div>
 
-    <button class="commentBtn" ion-button  (click)="presentModal()">Add a comment...</button>
+    <button class="commentBtn" ion-button  (click)="presentModal()">Add a comment</button>
 
     <div class="topCommentsSection">
+
       <ion-label class="topCommentsLabel">Top comments</ion-label>
 
+      <div class="commentHolder">
+
+        <div classs="photoHolder">
+          <ion-avatar>
+            <img src="https://www.gannett-cdn.com/presto/2018/09/06/PDTF/c9571445-4fc8-4156-8562-dd11d01e6b4a-Detroit_rapper_Eminem-13.JPG?crop=1999,1124,x0,y242&width=3200&height=1680&fit=bounds">
+          </ion-avatar>
+          <ion-label class="totalLikes">34</ion-label>
+        </div>
+
+        <div class="comment">
+            <ion-label class="commentator">atheesh_27</ion-label>
+            <ion-label class="commentText">This is a dummy comment.Lets see how it looks.wehfwejfhnwkjfnwljfnwlehfjwlwngwljgnlwgkwglwl.wvhfvwje.ofhwvnjn.
+              hhjfwenkjfnejfnwekfjnwekjfnlfwnlfkwmfwlemfwlkfwmfmwfkwmflwkfmlm.webfjfhnwekfjwnfkjnk
+            </ion-label>
+        </div>
+      </div>
     </div>
 
-  </div>
+  </ion-card>
 </ion-content>

@@ -4,10 +4,20 @@ import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 
-import * as firebase from '@angular/fire';
-import { FirebaseAuth } from '@angular/fire';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+
+import { Observable } from 'rxjs';
 
 import { AddacommentPage } from '../addacomment/addacomment.page';
+
+interface postData{
+  date: string;
+  likes: number;
+  totalcomments: number;
+  url: string;
+  likedlist: string;
+
+}
 
 @Component({
   selector: 'app-home',
@@ -17,9 +27,16 @@ import { AddacommentPage } from '../addacomment/addacomment.page';
 export class HomePage {
 
   userEmail:string
+  likeBtnName: string
+  likedList: Array<string>
 
-  constructor(public toastController: ToastController,private router: Router,private fauth:AngularFireAuth,public modalController: ModalController) {
+  private postDataDoc: AngularFirestoreDocument<postData>;
+  receivedPostData : Observable<postData>
+
+
+  constructor(public toastController: ToastController,private router: Router,private fauth:AngularFireAuth,public modalController: ModalController,private db:AngularFirestore) {
       this.getCurrentUserEmail()
+      this.likeBtnName = "heart-empty"
   }
 
   async presentModal() {
@@ -38,10 +55,24 @@ export class HomePage {
 
  async getCurrentUserEmail(){
   
-  this.fauth.authState.subscribe(user=>{//check whether user is log in or not
+  this.fauth.authState.subscribe(user=>{//check whether user is log in or not and get todays post data
     if(user){
       //get user email
       this.userEmail= user.email
+
+      //get today post data as well
+      var todayDate = new Date().toISOString().slice(0,10);
+
+      this.postDataDoc = this.db.collection("posts").doc(todayDate).collection("postdata").doc<postData>("data");
+      this.receivedPostData = this.postDataDoc.valueChanges();
+
+      this.receivedPostData.forEach((data)=>{
+        var receivedlist = data.likedlist
+        
+      })
+
+      
+
     }else{
       //user email not found
       this.fauth.auth.signOut();//log out and log in again for get the email
@@ -49,5 +80,17 @@ export class HomePage {
   })
 
   }
+
+  async showToastMessage(message){
+    const toast = await this.toastController.create({
+      message: 'Data : '+message,
+      duration: 2000
+    });
+    toast.present();
+
+
+  }
+
+
 
 }
