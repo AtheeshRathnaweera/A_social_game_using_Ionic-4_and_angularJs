@@ -130,13 +130,13 @@ export class HomePage {
       //already have liked
 
       this.likedOrNot = false
-      this.updateLikesAmount(-1)
+      this.updateLikesAmount(0)
       this.updateTheLikedListOfTheUser(0)
 
     }else{
 
       this.likedOrNot = true
-      this.updateLikesAmount(+1)
+      this.updateLikesAmount(1)
       this.updateTheLikedListOfTheUser(1)
   
     }
@@ -144,18 +144,37 @@ export class HomePage {
 
   }
 
-  updateLikesAmount(amount){
+  updateLikesAmount(type){
 
-    this.db.collection("posts").doc(this.todayDate).collection("postdata").doc("data").update({//Used the email as the id
-      likes: firebase.firestore.FieldValue.arrayUnion(this.todayDate)
+    if(type == 1){
 
-    }).then(function() {
-     this.showToastMessage('updated successfully')
+      this.db.collection("posts").doc(this.todayDate).collection("postdata").doc("data").update({//Used the email as the id
+        likes: firebase.firestore.FieldValue.increment(1)
+  
+      }).then(function() {
+       this.showToastMessage('updated successfully')
+  
+      }).catch(function(error) {
+        console.error("Error adding document: ", error);
+        this.showToastMessage('Error occured when liking the post!',error.message)
+      });
 
-    }).catch(function(error) {
-      console.error("Error adding document: ", error);
-      this.showToastMessage('Error occured when liking the post!',error.message)
-    });
+    }else{
+      
+      this.db.collection("posts").doc(this.todayDate).collection("postdata").doc("data").update({//Used the email as the id
+        likes: firebase.firestore.FieldValue.increment(-1)
+
+      }).then(function() {
+        this.showToastMessage('updated successfully')
+
+      }).catch(function(error) {
+        console.error("Error adding document: ", error);
+        this.showToastMessage('Error occured when liking the post!',error.message)
+      });
+    }
+
+
+
 
   }
 
