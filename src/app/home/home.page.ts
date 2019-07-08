@@ -7,6 +7,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 import { Observable } from 'rxjs';
+import * as firebase from 'firebase/app';
+
 
 import { AddacommentPage } from '../addacomment/addacomment.page';
 
@@ -38,6 +40,9 @@ export class HomePage {
 
   listArray: string[]
 
+  receivedList //store the received array from  the firestore
+  numberOfLikes: number //store the amount of likes
+
   private postDataDoc: AngularFirestoreDocument<postData>;
   receivedPostData : Observable<postData>
 
@@ -46,7 +51,6 @@ export class HomePage {
 
 
   constructor(public toastController: ToastController,private router: Router,private fauth:AngularFireAuth,public modalController: ModalController,private db:AngularFirestore) {
-  
   
     this.getCurrentUserEmail()
    
@@ -76,34 +80,33 @@ export class HomePage {
 
         //get today post data as well
         var todaydate = new Date();
-        this.todayDate = todaydate.getFullYear()+"-"+(todaydate.getMonth() + 1) +"-"+todaydate.getDay()
+        this.todayDate = todaydate.getFullYear()+"-"+(todaydate.getMonth() + 1) +"-"+todaydate.getDate()
       
         this.postDataDoc = this.db.collection("posts").doc(this.todayDate).collection("postdata").doc<postData>("data");
+
         this.receivedPostData = this.postDataDoc.valueChanges();
 
-        this.likedPostsDoc = this.db.collection("users").doc(user.email).collection("likedposts").doc<likedList>("liked");
-        this.receivedLikedList = this.likedPostsDoc.valueChanges();
-     
-        this.receivedLikedList.forEach((data)=>{//Create an array using received string
-          this.showToastMessage(" inside the foreach " +data.postlist)
-          this.listArray = data.postlist.split(",")
-          
-         // this.showToastMessage(" "+this.todayDate+"  "+this.listArray  )
+        this.receivedPostData.forEach((data)=>{
+            this.numberOfLikes = data.likes
+        })
 
-          if(this.listArray.includes(this.todayDate)){
-            this.showToastMessage("exists in the liked list "+this.todayDate)
+        this.likedPostsDoc = this.db.collection("users").doc(user.email).collection("likedposts").doc("liked");
+      
+        this.likedPostsDoc.valueChanges().forEach((datas)=>{
+          var recList = datas.postlist
+
+          if(recList.includes(this.todayDate)){
+            //this.showToastMessage("list:  "+recList+" likes: "+this.numberOfLikes+" index: "+recList.indexOf(this.todayDate))
             this.likedOrNot = true
             this.likeBtnName = "heart"
-    
+
           }else{
-            this.showToastMessage("Not exists in the liked list " +this.todayDate)
+           // this.showToastMessage("list:  " +recList+"  likes: "+this.numberOfLikes+" index: "+recList.indexOf(this.todayDate))
             this.likedOrNot = false
             this.likeBtnName = "heart-empty"
           }
-        });
-
-     
- 
+          
+        })
 
       }else{
       //user email not found
@@ -121,59 +124,61 @@ export class HomePage {
     toast.present();
   }
 
- /* async getLikedPostList(dateOfThePost){//getting the liked post list of the user
-    this.likedPostsDoc = this.db.collection("users").doc(this.userEmail).collection("likedposts").doc<likedList>("liked");
-    this.receivedLikedList = this.likedPostsDoc.valueChanges();
-
-    var listArray = []
-
-    this.receivedLikedList.forEach((data)=>{//Create an array using received string
-      this.likedListArray = data.postlist.split(",")
-    })
-
-    if(this.likedListArray.includes(dateOfThePost)){
-      this.showToastMessage("exists in the liked list")
-      this.likedOrNot = true
-      this.likeBtnName = "heart"
-
-    }else{
-      this.showToastMessage("Not exists in the liked list")
-      this.likedOrNot = false
-      this.likeBtnName = "heart-empty"
-    }
-
-  }*/
-
   async likeThePost(){
 
     if(this.likedOrNot){
-     
-      this.likeBtnName = "heart-empty"
+      //already have liked
+
       this.likedOrNot = false
-      var index = this.listArray.indexOf(this.todayDate)
-      this.listArray.splice(index,1)
-      this.showToastMessage("Like button pressed  "+this.listArray)
+      this.updateLikesAmount(-1)
+      this.updateTheLikedListOfTheUser(0)
 
     }else{
-      
-      this.likeBtnName = "heart"
-      this.likedOrNot = true
-      this.listArray.push(this.todayDate)
-      this.showToastMessage("Like button pressed  "+this.listArray)
-    }
 
-    //update the database
-    this.db.collection("users").doc(this.userEmail).collection("likedposts").doc("liked").update({//Used the email as the id
-      postlist: this.listArray.toString()
+      this.likedOrNot = true
+      this.updateLikesAmount(+1)
+      this.updateTheLikedListOfTheUser(1)
+  
+    }
+  
+
+  }
+
+  updateLikesAmount(amount){
+
+    this.db.collection("posts").doc(this.todayDate).collection("postdata").doc("data").update({//Used the email as the id
+      likes: firebase.firestore.FieldValue.arrayUnion(this.todayDate)
 
     }).then(function() {
      this.showToastMessage('updated successfully')
 
     }).catch(function(error) {
       console.error("Error adding document: ", error);
-      this.showToastMessage('Error occured when like the post!',error.message)
+      this.showToastMessage('Error occured when liking the post!',error.message)
     });
 
+  }
+
+  updateTheLikedListOfTheUser(val){
+
+   // val == 1 ---------> for add a value
+   // val == 0 ---------> for remove a value
+
+   if(val == 1){
+     //add today date to the list
+    this.db.collection("users").doc(this.userEmail).collection("likedposts").doc("liked").update({
+      postlist: firebase.firestore.FieldValue.arrayUnion(this.todayDate)
+    });
+
+   }else{
+    // remove today date form the list
+    this.db.collection("users").doc(this.userEmail).collection("likedposts").doc("liked").update({
+      postlist: firebase.firestore.FieldValue.arrayRemove(this.todayDate)
+    });
+
+   }
+
+  
   }
 
 }

@@ -13,7 +13,8 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth'
 import { AngularFirestoreModule } from '@angular/fire/firestore'
 import { environment } from '../environments/environment';
-import { FirebaseAuth} from '@angular/fire'
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+
 
 
 @NgModule({
