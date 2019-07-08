@@ -26,7 +26,7 @@ temp/
 platforms/
 plugins/
 /src/environments/environment.ts
-package-lock.json
+.package-lock.json
 plugins/android.json
 plugins/ios.json
 $RECYCLE.BIN/
