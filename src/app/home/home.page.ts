@@ -27,10 +27,11 @@ interface likedList{
 
 export class singleComment{
   id: string;
-  addedtime: string;
   commenttext: string;
   likes: number;
   useremail: string;
+  username: string;
+  url: string;
 }
 
 @Component({
@@ -225,10 +226,11 @@ export class HomePage {
         const comment: singleComment = new singleComment()
 
         comment.id = d.id
-        comment.addedtime = d.get("addedtime")
         comment.commenttext = d.get("commenttext")
         comment.likes = d.get("likes")
         comment.useremail = d.get("useremail")
+        comment.username = d.get("username")
+        comment.url = d.get("url")
 
         this.comments.push(comment)
       

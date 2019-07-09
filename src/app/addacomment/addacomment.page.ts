@@ -12,14 +12,16 @@ export class userComment {
   name: string;
   comment: string;
   email: string;
+  url: string;
+
 }
 
 export class singleComment{
   id: string;
-  addedtime: string;
   commenttext: string;
   likes: number;
   useremail: string;
+  username: string;
 }
 
 @Component({
@@ -82,19 +84,35 @@ export class AddacommentPage implements OnInit {
   addTheComment(){
     var todaydate = new Date();
    // var todayDate = todaydate.getFullYear()+"-"+(todaydate.getMonth() + 1) +"-"+todaydate.getDate()
-    var currentTime = todaydate.getHours()+" : "+todaydate.getMinutes()+" : "+todaydate.getSeconds()
+
+
+    this.db.collection("users").doc(this.userComment.email).get().forEach((data)=>{
+      this.userComment.name = data.get("name")
+      this.userComment.url = data.get("profilePicUrl")
+   }).then(()=>{
 
     this.db.collection("posts").doc(this.todayDate).collection("comments").add({
-      addedtime: currentTime,
       commenttext: this.userComment.comment,
       likes: 0,
-      useremail: this.userComment.email
+      useremail: this.userComment.email,
+      username: this.userComment.name,
+      url: this.userComment.url
     }).then(()=>{
       this.updateTheTotalCommentsValue(1,this.todayDate);
       this.userComment.comment = ""
      } 
     );
+
+   })
+  
+    
+
+   
+
+ 
   }
+
+
 
   updateTheTotalCommentsValue(val,dateRec){
     //val == 1 ------> add a new comment so increment the value
@@ -121,3 +139,4 @@ export class AddacommentPage implements OnInit {
 
 
 }
+

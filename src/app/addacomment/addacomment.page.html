@@ -18,16 +18,20 @@
     </div>
 --> 
 
-  <ion-virtual-scroll [items]="comments" approxItemHeight="'30px'">
+  <ion-virtual-scroll [items]="comments" approxItemHeight="'200px'">
     <ion-card *virtualItem="let comment" >
-      <ion-avatar>
-        <img src="https://www.gannett-cdn.com/presto/2018/09/06/PDTF/c9571445-4fc8-4156-8562-dd11d01e6b4a-Detroit_rapper_Eminem-13.JPG?crop=1999,1124,x0,y242&width=3200&height=1680&fit=bounds">
-      </ion-avatar>
+      <div class="likeHolder">
+        <ion-avatar>
+          <img src="{{comment.url}}">
+        </ion-avatar>
+        <ion-icon name="arrow-dropup" class="likeUpDown"></ion-icon>
+        <ion-label class="likeAmount">{{comment.likes}}</ion-label>
+        <ion-icon name="arrow-dropdown" class="likeUpDown"></ion-icon>
+      </div>
       <div class="cardContent">
-        <ion-card-header>
-          <ion-card-title>{{comment.useremail}}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>{{comment.commenttext}}</ion-card-content>
+      
+        <ion-label class="commentatorName">{{comment.username}}</ion-label>        
+        <p class="commentSection">{{comment.commenttext}}</p>
       </div>
     </ion-card>
   </ion-virtual-scroll>

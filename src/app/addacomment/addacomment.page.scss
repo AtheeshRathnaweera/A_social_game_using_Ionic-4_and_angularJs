@@ -35,18 +35,72 @@ ion-content{
 }
 
 ion-card{
-    background-color: aqua;
+    background-color: whitesmoke;
     display: flex;
     flex-direction: row;
+    border-radius: 10px !important;
+
 }
 
 .cardContent{
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: 76%;
+    margin-top: 10px;
+    margin-left: 6px;
+    margin-right: 6px;
 }
 
 ion-avatar{
-    padding-top: 2em;
-    padding-left: 2em;
+    margin-top: 0.7em;
+    margin-left: 0.6em;
+    margin-right: 0.2em;
+    max-width: 3.5em;
+    max-height: 3.5em
+ 
+
+}
+
+.timeBadge{
+    width: 30%;
+    font-size: 0.8em;
+    margin-top: 7px;
+
+}
+
+.likeHolder{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    height: 90%;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+
+}
+
+.likeUpDown{
+    font-size: 2.2em;
+
+}
+
+.likeAmount{
+    font-size: 1.5em;
+}
+
+.commentatorName{
+
+    font-size: 1.5em;
+    font-style: oblique;
+    color: black;
+    
+}
+
+.commentSection{
+    margin-left: 0.3em;
+}
+
+ion-virtual-scroll{
+    padding-bottom: 5px;
+
 }
