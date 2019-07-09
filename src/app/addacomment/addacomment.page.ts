@@ -28,15 +28,20 @@ export class singleComment{
   styleUrls: ['./addacomment.page.scss'],
 })
 
-export class AddacommentPage {
+export class AddacommentPage implements OnInit {
+  
 
   public userComment:userComment = new userComment();//Create a new usercomment
 
   todayDate: string //store todaydate
 
-  comments: singleComment[]
+  //comments: singleComment[]
 
   commentsString: Array<string>
+
+  comments//store the data
+
+
 
   constructor(public toastController: ToastController,private router: Router,private fauth:AngularFireAuth,private db:AngularFirestore) {
     this.getCurrentUserData()
@@ -44,7 +49,11 @@ export class AddacommentPage {
     var todaydate = new Date();
     this.todayDate = todaydate.getFullYear()+"-"+(todaydate.getMonth() + 1) +"-"+todaydate.getDate()
 
-    this.getAllTheComments()
+   // this.getAllTheComments()
+  }
+
+  ngOnInit() {
+    this.showToastMessage(`${this.comments.length}`+"  "+`${this.comments[0]}`)
   }
 
   validateTheComment(){
@@ -82,6 +91,7 @@ export class AddacommentPage {
       useremail: this.userComment.email
     }).then(()=>{
       this.updateTheTotalCommentsValue(1,this.todayDate);
+      this.userComment.comment = ""
      } 
     );
   }
@@ -103,38 +113,11 @@ export class AddacommentPage {
   async showToastMessage(message){
     const toast = await this.toastController.create({
       message: 'Data : '+message,
-      duration: 4000
+      duration: 3000
     });
     toast.present();
   }
 
-  getAllTheComments(){
 
-
-    this.db.collection("posts").doc(this.todayDate).collection("comments").get().forEach((docData)=>{
-
-      docData.forEach((d)=>{
-        
-        //var comment: singleComment = new singleComment()
-        //this.comments = this.comments.concat(data.data())
-
-        
-        this.commentsString.push(d.get("useremail"))
-      
-      })
-      
-    })
-
-    this.showToastMessage(this.commentsString)
-
-
-
-
-   
-
-    
-
-    
-  }
 
 }

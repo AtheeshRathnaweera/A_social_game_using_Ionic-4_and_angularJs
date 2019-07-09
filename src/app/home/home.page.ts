@@ -25,42 +25,56 @@ interface likedList{
   postlist: string;
 }
 
+export class singleComment{
+  id: string;
+  addedtime: string;
+  commenttext: string;
+  likes: number;
+  useremail: string;
+}
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
+
 export class HomePage {
 
   userEmail:string
   likeBtnName: string
-  likedList: Array<string>
+ // likedList: Array<string>
   todayDate: string
   likedOrNot: boolean
 
-  listArray: string[]
+  //listArray: string[]
 
-  receivedList //store the received array from  the firestore
+ // receivedList //store the received array from  the firestore
   numberOfLikes: number //store the amount of likes
 
   private postDataDoc: AngularFirestoreDocument<postData>;
   receivedPostData : Observable<postData>
 
   private likedPostsDoc: AngularFirestoreDocument<likedList>;
-  receivedLikedList: Observable<likedList>
+ // receivedLikedList: Observable<likedList>
 
+  comments = [] //store all the comments
 
   constructor(public toastController: ToastController,private router: Router,private fauth:AngularFireAuth,public modalController: ModalController,private db:AngularFirestore) {
   
     this.getCurrentUserEmail()
+
+   // this.getAllTheComments()
    
-    //<ion-icon name="heart"></ion-icon>
   }
 
   async presentModal() {
     
     const modal = await this.modalController.create({
-      component: AddacommentPage
+      component: AddacommentPage,
+      componentProps: {
+        comments: this.comments
+      }
     });
 
     return await modal.present();
@@ -107,6 +121,8 @@ export class HomePage {
           }
           
         })
+
+        this.getAllTheComments()
 
       }else{
       //user email not found
@@ -198,6 +214,30 @@ export class HomePage {
    }
 
   
+  }
+
+  getAllTheComments(){
+
+    this.db.collection("posts").doc(this.todayDate).collection("comments").get().forEach((docData)=>{
+
+      docData.forEach((d)=>{
+        
+        const comment: singleComment = new singleComment()
+
+        comment.id = d.id
+        comment.addedtime = d.get("addedtime")
+        comment.commenttext = d.get("commenttext")
+        comment.likes = d.get("likes")
+        comment.useremail = d.get("useremail")
+
+        this.comments.push(comment)
+      
+      })
+
+      this.showToastMessage("total comments : "+ this.comments.length )
+
+    })
+   
   }
 
 }

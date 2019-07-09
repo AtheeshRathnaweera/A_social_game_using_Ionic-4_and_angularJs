@@ -1,16 +1,45 @@
 <ion-content>
- <div class="commentListHolder">
-    <ion-label >comment list will be shown here</ion-label>
-    <ion-list>
+ 
 
+  
+     <!-- <ion-card *virtualItem="let comment">
+        <div>
+          <ion-img [src]="https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.Y6Xo7ozc-rL5UrzUanPlxAHaHa%26pid%3DApi&f=1" [height]="20px" [alt]="image"></ion-img>
+        </div>
+      <ion-card-header>
+        <ion-card-title>{{ item.useremail }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>{{ item.commenttext }}</ion-card-content>
+      </ion-card> 
+    
+    <div class="commentingSection">
+      <ion-textarea [(ngModel)]="userComment.comment"  placeholder="add a comment.."></ion-textarea>
+      <ion-icon name="send" class="commentSendIcon" (click)="validateTheComment()"></ion-icon>
+    </div>
+--> 
 
-    </ion-list>
-  </div>
-  
-  
+  <ion-virtual-scroll [items]="comments" approxItemHeight="'30px'">
+    <ion-card *virtualItem="let comment" >
+      <ion-avatar>
+        <img src="https://www.gannett-cdn.com/presto/2018/09/06/PDTF/c9571445-4fc8-4156-8562-dd11d01e6b4a-Detroit_rapper_Eminem-13.JPG?crop=1999,1124,x0,y242&width=3200&height=1680&fit=bounds">
+      </ion-avatar>
+      <div class="cardContent">
+        <ion-card-header>
+          <ion-card-title>{{comment.useremail}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>{{comment.commenttext}}</ion-card-content>
+      </div>
+    </ion-card>
+  </ion-virtual-scroll>
+
   <div class="commentingSection">
       <ion-textarea [(ngModel)]="userComment.comment"  placeholder="add a comment.."></ion-textarea>
       <ion-icon name="send" class="commentSendIcon" (click)="validateTheComment()"></ion-icon>
   </div>
 
+ 
+  
+  
+  
+  
 </ion-content>
