@@ -61,6 +61,8 @@ ion-header{
     text-align: justify;
     margin-top: 6px;
     margin-bottom: 5px;
+   
+   
 
 }
 
@@ -154,10 +156,10 @@ ion-label{
 .photoHolder{
     display: flex;
     flex-direction: column;
+    
 }
 
 .totalLikes{
-    margin-left: 28%;
     font-size: 2em;
 
 
@@ -173,6 +175,11 @@ ionic-avatar{
     margin-left: 7px;
     margin-top: 5px;
     margin-right: 5px;
+}
+
+ion-avatar{
+    
+
 }
 
 

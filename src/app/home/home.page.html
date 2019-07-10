@@ -31,19 +31,13 @@
       <ion-label class="topCommentsLabel">Top comments</ion-label>
 
       <div class="commentHolder">
-
-        <div classs="photoHolder">
-          <ion-avatar>
-            <img src="https://www.gannett-cdn.com/presto/2018/09/06/PDTF/c9571445-4fc8-4156-8562-dd11d01e6b4a-Detroit_rapper_Eminem-13.JPG?crop=1999,1124,x0,y242&width=3200&height=1680&fit=bounds">
-          </ion-avatar>
-          <ion-label class="totalLikes">34</ion-label>
-        </div>
+         
+        <ion-label class="totalLikes">{{topComment.likes}}</ion-label>
+        
 
         <div class="comment">
-            <ion-label class="commentator">atheesh_27</ion-label>
-            <ion-label class="commentText">This is a dummy comment.Lets see how it looks.wehfwejfhnwkjfnwljfnwlehfjwlwngwljgnlwgkwglwl.wvhfvwje.ofhwvnjn.
-              hhjfwenkjfnejfnwekfjnwekjfnlfwnlfkwmfwlemfwlkfwmfmwfkwmflwkfmlm.webfjfhnwekfjwnfkjnk
-            </ion-label>
+            <ion-label class="commentator">{{ topComment.username }}</ion-label>
+            <ion-label class="commentText">{{topComment.commenttext}}</ion-label>
         </div>
       </div>
     </div>

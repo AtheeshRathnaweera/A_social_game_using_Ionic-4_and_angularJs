@@ -18,22 +18,23 @@
     </div>
 --> 
 
-  <ion-virtual-scroll [items]="comments" approxItemHeight="'200px'">
-    <ion-card *virtualItem="let comment" >
-      <div class="likeHolder">
-        <ion-avatar>
-          <img src="{{comment.url}}">
-        </ion-avatar>
-        <ion-icon name="arrow-dropup" class="likeUpDown"></ion-icon>
-        <ion-label class="likeAmount">{{comment.likes}}</ion-label>
-        <ion-icon name="arrow-dropdown" class="likeUpDown"></ion-icon>
-      </div>
-      <div class="cardContent">
-      
-        <ion-label class="commentatorName">{{comment.username}}</ion-label>        
-        <p class="commentSection">{{comment.commenttext}}</p>
-      </div>
-    </ion-card>
+  <ion-virtual-scroll [items]="comments" approxItemHeight="'100px'">
+    <div *virtualItem="let comment" >
+      <ion-card>
+        <div class="likeHolder">
+          <ion-avatar>
+            <img src="{{comment.url}}">
+          </ion-avatar>
+          <ion-icon name="arrow-dropup" class="likeUpDown" (click)="voting(1,comment.id)"></ion-icon>
+          <ion-label class="likeAmount">{{getTheNumberOfLikesOfThePost(comment.id)}}</ion-label>
+          <ion-icon name="arrow-dropdown" class="likeUpDown" (click)="voting(0,comment.id)"></ion-icon>
+        </div>
+        <div class="cardContent">
+          <ion-label class="commentatorName">{{comment.username}}</ion-label>        
+          <p class="commentSection">{{comment.commenttext}}</p>
+        </div>
+      </ion-card>
+    </div>
   </ion-virtual-scroll>
 
   <div class="commentingSection">

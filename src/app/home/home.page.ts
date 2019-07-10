@@ -34,6 +34,7 @@ export class singleComment{
   url: string;
 }
 
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -59,10 +60,19 @@ export class HomePage {
   private likedPostsDoc: AngularFirestoreDocument<likedList>;
  // receivedLikedList: Observable<likedList>
 
+  topComment: singleComment = new singleComment()
+
   comments = [] //store all the comments
+
+  topCommentImage = "hidden"
+
+  
 
   constructor(public toastController: ToastController,private router: Router,private fauth:AngularFireAuth,public modalController: ModalController,private db:AngularFirestore) {
   
+    this.topComment.commenttext = "No comments yet"
+
+   
     this.getCurrentUserEmail()
 
    // this.getAllTheComments()
@@ -240,6 +250,10 @@ export class HomePage {
 
     })
    
+  }
+
+  getTheHighestRatedComment(){
+
   }
 
 }

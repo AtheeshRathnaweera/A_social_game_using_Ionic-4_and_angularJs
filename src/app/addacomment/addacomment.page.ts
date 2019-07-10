@@ -136,6 +136,24 @@ export class AddacommentPage implements OnInit {
     toast.present();
   }
 
+  getTheNumberOfLikesOfThePost(recId){
+    return recId
+  }
+
+  voting(type,recData){
+    if(type == 1){
+        //upvote
+
+    }else{
+      //downvote
+
+    }
+
+    this.showToastMessage(recData)
+    
+
+  }
+
 
 
 }
