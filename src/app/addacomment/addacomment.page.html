@@ -19,7 +19,7 @@
 --> 
 
   <ion-virtual-scroll [items]="comments" approxItemHeight="'100px'">
-    <div *virtualItem="let comment" >
+    <div *virtualItem="let comment" > <!--Wrapping with a div is important-->
       <ion-card>
         <div class="likeHolder">
           <ion-avatar>

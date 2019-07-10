@@ -22,6 +22,7 @@ export class singleComment{
   likes: number;
   useremail: string;
   username: string;
+  url: string;
 }
 
 @Component({
@@ -96,7 +97,9 @@ export class AddacommentPage implements OnInit {
       likes: 0,
       useremail: this.userComment.email,
       username: this.userComment.name,
-      url: this.userComment.url
+      url: this.userComment.url,
+      upvotedlist: [],
+      downvotedlist: []
     }).then(()=>{
       this.updateTheTotalCommentsValue(1,this.todayDate);
       this.userComment.comment = ""
@@ -137,19 +140,49 @@ export class AddacommentPage implements OnInit {
   }
 
   getTheNumberOfLikesOfThePost(recId){
-    return recId
+    return 0
   }
 
-  voting(type,recData){
+  async checkInTheUpVotedList(postId,useremail,listType){
+
+    await this.db.collection("posts").doc(this.todayDate).collection("comments").doc(postId).get().forEach((data)=>{
+      var votedList = data.get(listType)
+
+      if(votedList.includes(useremail)){
+        this.showToastMessage("user is in "+listType)
+      }  else{
+        this.showToastMessage("user is not in "+listType)
+      }    
+
+    })
+
+  }
+
+  addToTheList(postId,useremail,recListType){
+
+    this.db.collection("posts").doc(this.todayDate).collection("comments").doc(postId).update({
+      recListType : firebase.firestore.FieldValue.arrayUnion(useremail)
+    })
+
+  }
+
+  removeFromTheList(postId,useremail,recListType){
+    this.db.collection("posts").doc(this.todayDate).collection("comments").doc(postId).update({
+      recListType : firebase.firestore.FieldValue.arrayRemove(useremail)
+    })
+  }
+
+  voting(type,recPostId){
     if(type == 1){
         //upvote
+        
 
     }else{
       //downvote
 
     }
 
-    this.showToastMessage(recData)
+    this.showToastMessage(recPostId)
     
 
   }

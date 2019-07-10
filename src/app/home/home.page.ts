@@ -83,7 +83,7 @@ export class HomePage {
     
     const modal = await this.modalController.create({
       component: AddacommentPage,
-      componentProps: {
+      componentProps: {//passing the values from parent to modal class
         comments: this.comments
       }
     });
