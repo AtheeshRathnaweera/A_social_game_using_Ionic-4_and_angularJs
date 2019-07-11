@@ -7,6 +7,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase/app';
+import { enableDebugTools } from '@angular/platform-browser';
 
 export class userComment {
   name: string;
@@ -16,13 +17,24 @@ export class userComment {
 
 }
 
-export class singleComment{
-  id: string;
+interface comment {
   commenttext: string;
   likes: number;
   useremail: string;
   username: string;
   url: string;
+  votelist: string[];
+  votecode: number[];
+}
+
+export class singleComment{
+  commenttext: string;
+  likes: number;
+  useremail: string;
+  username: string;
+  url: string;
+  votelist: string[];
+  votecode: number[];
 }
 
 @Component({
@@ -36,6 +48,9 @@ export class AddacommentPage implements OnInit {
 
   public userComment:userComment = new userComment();//Create a new usercomment
 
+  private commentDoc: AngularFirestoreDocument<comment>;
+  commentDataObservable : Observable<comment>
+
   todayDate: string //store todaydate
 
   //comments: singleComment[]
@@ -43,6 +58,9 @@ export class AddacommentPage implements OnInit {
   commentsString: Array<string>
 
   comments//store the data
+
+  userExist : boolean
+  voteCode: number
 
 
 
@@ -92,14 +110,17 @@ export class AddacommentPage implements OnInit {
       this.userComment.url = data.get("profilePicUrl")
    }).then(()=>{
 
+    var vote = {
+        email: this.userComment.email,
+        vote: 0
+    }
+
     this.db.collection("posts").doc(this.todayDate).collection("comments").add({
       commenttext: this.userComment.comment,
       likes: 0,
       useremail: this.userComment.email,
       username: this.userComment.name,
-      url: this.userComment.url,
-      upvotedlist: [],
-      downvotedlist: []
+      url: this.userComment.url
     }).then(()=>{
       this.updateTheTotalCommentsValue(1,this.todayDate);
       this.userComment.comment = ""
@@ -107,12 +128,7 @@ export class AddacommentPage implements OnInit {
     );
 
    })
-  
-    
 
-   
-
- 
   }
 
 
@@ -140,54 +156,75 @@ export class AddacommentPage implements OnInit {
   }
 
   getTheNumberOfLikesOfThePost(recId){
-    return 0
-  }
-
-  async checkInTheUpVotedList(postId,useremail,listType){
-
-    await this.db.collection("posts").doc(this.todayDate).collection("comments").doc(postId).get().forEach((data)=>{
-      var votedList = data.get(listType)
-
-      if(votedList.includes(useremail)){
-        this.showToastMessage("user is in "+listType)
-      }  else{
-        this.showToastMessage("user is not in "+listType)
-      }    
-
-    })
-
-  }
-
-  addToTheList(postId,useremail,recListType){
-
-    this.db.collection("posts").doc(this.todayDate).collection("comments").doc(postId).update({
-      recListType : firebase.firestore.FieldValue.arrayUnion(useremail)
-    })
-
-  }
-
-  removeFromTheList(postId,useremail,recListType){
-    this.db.collection("posts").doc(this.todayDate).collection("comments").doc(postId).update({
-      recListType : firebase.firestore.FieldValue.arrayRemove(useremail)
-    })
+    
+    //this.commentsLikeHolder.
+  
   }
 
   voting(type,recPostId){
-    if(type == 1){
-        //upvote
-        
+    this.checkExist(recPostId).then(()=>{
+      if(this.userExist){
+      
+        if((type == 1 && this.voteCode == -1) || (type == -1 && this.voteCode == 1)){
+          //delete the doc
+          this.updateTheLikesAmountOfTheComment(recPostId,type).then(()=>{
+            this.deleteTheDoc(recPostId)
+          })
+         
+        }else{
+          //do nothing
+        }
 
-    }else{
-      //downvote
+      }else{
+        this.updateTheLikesAmountOfTheComment(recPostId,type).then(()=>{
+          this.createTheVotedDoc(type,recPostId)
+        })
+       
+      }
+     
+    })
 
-    }
+  }
 
-    this.showToastMessage(recPostId)
-    
+  async updateTheLikesAmountOfTheComment(postId,voteVal){
+    await this.db.collection("posts").doc(this.todayDate).collection("comments").doc(postId).update({
+      likes : firebase.firestore.FieldValue.increment(voteVal)
+    })
+
+  }
+
+
+  createTheVotedDoc(voteType,postId){
+    this.db.collection("posts").doc(this.todayDate).collection("comments").doc(postId)
+                .collection("votedlist").doc(this.userComment.email).set({
+                  vote: voteType
+                })
+   }
+
+  deleteTheDoc(postId){
+    this.db.collection("posts").doc(this.todayDate).collection("comments").doc(postId)
+                .collection("votedlist").doc(this.userComment.email).delete()
+  }
+
+
+
+  async checkExist(postId){
+    await this.db.collection("posts").doc(this.todayDate).collection("comments").doc(postId)
+                .collection("votedlist").doc(this.userComment.email).get().forEach((data)=>{
+                  if(data.exists){
+                    this.userExist = true
+                    this.voteCode = data.get("vote")
+                  }else{
+                    this.userExist = false
+                  }
+                })
 
   }
 
 
 
 }
+
+
+
 

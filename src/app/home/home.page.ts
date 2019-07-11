@@ -49,11 +49,6 @@ export class HomePage {
   todayDate: string
   likedOrNot: boolean
 
-  //listArray: string[]
-
- // receivedList //store the received array from  the firestore
-  numberOfLikes: number //store the amount of likes
-
   private postDataDoc: AngularFirestoreDocument<postData>;
   receivedPostData : Observable<postData>
 
@@ -110,10 +105,6 @@ export class HomePage {
         this.postDataDoc = this.db.collection("posts").doc(this.todayDate).collection("postdata").doc<postData>("data");
 
         this.receivedPostData = this.postDataDoc.valueChanges();
-
-        this.receivedPostData.forEach((data)=>{
-            this.numberOfLikes = data.likes
-        })
 
         this.likedPostsDoc = this.db.collection("users").doc(user.email).collection("likedposts").doc("liked");
       

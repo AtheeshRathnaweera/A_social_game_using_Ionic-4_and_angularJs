@@ -27,7 +27,7 @@
           </ion-avatar>
           <ion-icon name="arrow-dropup" class="likeUpDown" (click)="voting(1,comment.id)"></ion-icon>
           <ion-label class="likeAmount">{{getTheNumberOfLikesOfThePost(comment.id)}}</ion-label>
-          <ion-icon name="arrow-dropdown" class="likeUpDown" (click)="voting(0,comment.id)"></ion-icon>
+          <ion-icon name="arrow-dropdown" class="likeUpDown" (click)="voting(-1,comment.id)"></ion-icon>
         </div>
         <div class="cardContent">
           <ion-label class="commentatorName">{{comment.username}}</ion-label>        
