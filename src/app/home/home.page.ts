@@ -35,6 +35,7 @@ export class singleComment{
 }
 
 
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -61,11 +62,15 @@ export class HomePage {
 
   topCommentImage = "hidden"
 
-  
+  commentButtonLabel : string 
+  modalReady : boolean
+
 
   constructor(public toastController: ToastController,private router: Router,private fauth:AngularFireAuth,public modalController: ModalController,private db:AngularFirestore) {
   
     this.topComment.commenttext = "No comments yet"
+    this.commentButtonLabel = "Preparing comments ..."
+    this.modalReady = false
 
    
     this.getCurrentUserEmail()
@@ -75,15 +80,22 @@ export class HomePage {
   }
 
   async presentModal() {
-    
-    const modal = await this.modalController.create({
-      component: AddacommentPage,
-      componentProps: {//passing the values from parent to modal class
-        comments: this.comments
-      }
-    });
 
-    return await modal.present();
+    if(this.modalReady){
+      const modal = await this.modalController.create({
+        component: AddacommentPage,
+        componentProps: {//passing the values from parent to modal class
+          comments: this.comments
+        }
+      });
+  
+      return await modal.present();
+    }else{
+      this.showToastMessage("Comment section is still preparing...")
+
+    }
+    
+    
   }
 
   async seeProfile(){
@@ -124,7 +136,10 @@ export class HomePage {
           
         })
 
-        this.getAllTheComments()
+        this.getAllTheComments().then(()=>{
+            this.commentButtonLabel = "Add a comment"
+            this.modalReady = true
+        })
 
       }else{
       //user email not found
@@ -136,8 +151,8 @@ export class HomePage {
 
   async showToastMessage(message){
     const toast = await this.toastController.create({
-      message: 'Data : '+message,
-      duration: 4000
+      message: message,
+      duration: 3000
     });
     toast.present();
   }
@@ -218,9 +233,9 @@ export class HomePage {
   
   }
 
-  getAllTheComments(){
+  async getAllTheComments(){
 
-    this.db.collection("posts").doc(this.todayDate).collection("comments").get().forEach((docData)=>{
+    await this.db.collection("posts").doc(this.todayDate).collection("comments").get().forEach((docData)=>{
 
       docData.forEach((d)=>{
         

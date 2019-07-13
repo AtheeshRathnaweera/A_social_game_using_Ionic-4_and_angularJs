@@ -43,7 +43,7 @@ export class singleComment{
   styleUrls: ['./addacomment.page.scss'],
 })
 
-export class AddacommentPage implements OnInit {
+export class AddacommentPage{
   
 
   public userComment:userComment = new userComment();//Create a new usercomment
@@ -62,19 +62,19 @@ export class AddacommentPage implements OnInit {
   userExist : boolean
   voteCode: number
 
-
+  upVoteBtnColor: string
+  downVoteBtnColor: string
 
   constructor(public toastController: ToastController,private router: Router,private fauth:AngularFireAuth,private db:AngularFirestore) {
+    this.upVoteBtnColor = "#696969"
+    this.downVoteBtnColor = "#696969"
     this.getCurrentUserData()
 
     var todaydate = new Date();
     this.todayDate = todaydate.getFullYear()+"-"+(todaydate.getMonth() + 1) +"-"+todaydate.getDate()
 
-   // this.getAllTheComments()
-  }
 
-  ngOnInit() {
-    this.showToastMessage(`${this.comments.length}`+"  "+`${this.comments[0]}`)
+   // this.getAllTheComments()
   }
 
   validateTheComment(){
@@ -156,12 +156,16 @@ export class AddacommentPage implements OnInit {
   }
 
   getTheNumberOfLikesOfThePost(recId){
+
+    
     
     //this.commentsLikeHolder.
   
   }
 
   voting(type,recPostId){
+
+
     this.checkExist(recPostId).then(()=>{
       if(this.userExist){
       
@@ -200,6 +204,8 @@ export class AddacommentPage implements OnInit {
                   vote: voteType
                 })
    }
+
+  
 
   deleteTheDoc(postId){
     this.db.collection("posts").doc(this.todayDate).collection("comments").doc(postId)

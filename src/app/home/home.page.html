@@ -24,7 +24,7 @@
     <ion-label class="numberOfComments">{{(receivedPostData|async)?.totalcomments}}</ion-label>
   </div>
 
-  <button class="commentBtn" ion-button  (click)="presentModal()">Add a comment</button>
+  <button class="commentBtn" ion-button  (click)="presentModal()">{{commentButtonLabel}}</button>
 
   <div class="topCommentsSection">
 
