@@ -1,15 +1,169 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ToastController } from '@ionic/angular';
+
+import { Observable, ObservableLike } from 'rxjs';
+
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+
+import * as firebase from 'firebase/app';
+
+interface userComment{
+      commenttext: string;
+      likes: number;
+      useremail: string;
+      username: string;
+      url: string;
+     // addedtime: string;
+}
+
+interface voteCodeData{
+  vote: number;
+}
 
 @Component({
   selector: 'app-viewthestory',
   templateUrl: './viewthestory.page.html',
   styleUrls: ['./viewthestory.page.scss'],
 })
+
 export class ViewthestoryPage implements OnInit {
 
-  constructor() { }
+  private commentDataDoc: AngularFirestoreDocument<userComment>;
+  commentData : Observable<userComment>
+
+  voteCodeObs : Observable<voteCodeData>
+
+  todayDate : string //store today date
+  commentId: string //store received comment id
+
+  userEmail: string 
+  userExist: boolean
+  voteCode: number
+
+  upVoteBtnColor: string
+  downVoteBtnColor: string
+
+  constructor(private route: ActivatedRoute,private toastController: ToastController,private db:AngularFirestore) { 
+ 
+  }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.commentId = params.commentId
+      this.userEmail = params.useremail
+      
+    });
+ 
+    this.getCommentDataObservable()
+    this.checkUserExistencyInVotedList()
+
+
+  }
+
+ getCommentDataObservable(){
+    var todaydate = new Date();
+    this.todayDate = todaydate.getFullYear()+"-"+(todaydate.getMonth() + 1) +"-"+todaydate.getDate()
+
+    //this.showToastMessage("methdo started   "+this.commentId+"  "+this.todayDate)
+    this.commentDataDoc = this.db.collection("posts").doc(this.todayDate).collection("comments").doc<userComment>(this.commentId)
+    this.commentData= this.commentDataDoc.valueChanges();
+
+  }
+
+  async showToastMessage(message){
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 3000
+    });
+    toast.present();
+  }
+
+  voting(voteType){
+
+      if(this.userExist){
+
+        if((voteType == 1 && this.voteCode == -1) || (voteType == -1 && this.voteCode == 1)){
+          //remove the user from voted list
+          this.userExist = false
+          this.voteCode = 0
+          this.updateTheLikesAmountOfTheComment(voteType).then(()=>{
+            this.removeTheUserFromVotedList()
+          })
+
+          this.setTheVotingButtonColors()
+         
+        }else{
+          //do nothing
+        }
+
+      }else{
+          this.userExist = true
+          this.voteCode = voteType
+          this.updateTheLikesAmountOfTheComment(voteType).then(()=>{
+            this.createTheVotedDoc(voteType)
+          })
+
+          this.setTheVotingButtonColors()
+
+      }
+ 
+  }
+
+  createTheVotedDoc(voteType){
+    this.db.collection("posts").doc(this.todayDate).collection("comments").doc(this.commentId)
+                .collection("votedlist").doc(this.userEmail).set({
+                  vote: voteType
+                })
+   }
+
+  removeTheUserFromVotedList(){
+    this.db.collection("posts").doc(this.todayDate).collection("comments").doc(this.commentId)
+                .collection("votedlist").doc(this.userEmail).delete()
+  }
+
+  async updateTheLikesAmountOfTheComment(voteType){
+    await this.db.collection("posts").doc(this.todayDate).collection("comments").doc(this.commentId).update({
+      likes : firebase.firestore.FieldValue.increment(voteType)
+    })
+
+  }
+
+  checkUserExistencyInVotedList(){
+    this.db.collection("posts").doc(this.todayDate).collection("comments").doc(this.commentId).collection("votedlist").doc(this.userEmail).get().forEach((data)=>{
+      if(data.exists){
+        this.userExist = true
+        this.voteCode = data.get("vote")
+        this.showToastMessage("user exist in voted list"+this.userExist +"   "+this.voteCode)
+      }else{
+        this.userExist = false
+        this.voteCode = 0
+        this.showToastMessage("user not exist "+this.userExist+"  "+this.voteCode)
+        
+      }
+    }).then(()=>{
+      this.setTheVotingButtonColors()
+    })
+
+    //this.voteCodeObs = this.db.collection("posts").doc(this.todayDate).collection("comments").doc(this.commentId)
+    //.collection("votedlist").doc<voteCodeData>(this.userEmail).valueChanges()
+
+
+
+  }
+
+  setTheVotingButtonColors(){
+    if(this.voteCode == 1){
+      this.upVoteBtnColor = "#FFD700"
+      this.downVoteBtnColor = "#ffffff"
+    }else if(this.voteCode == -1){
+      this.upVoteBtnColor = "#ffffff"
+      this.downVoteBtnColor = "#FFD700"
+    }else{
+      this.upVoteBtnColor = "#ffffff"
+      this.downVoteBtnColor = "#ffffff"
+    }
+
   }
 
 }

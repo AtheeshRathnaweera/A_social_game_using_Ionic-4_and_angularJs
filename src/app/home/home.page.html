@@ -18,7 +18,7 @@
   <img class="imageSrc" src={{(receivedPostData|async)?.url}}>
 
   <div class="photoDataHolder">
-    <ion-icon name={{likeBtnName}} class="likeIcon" (click)="likeThePost()"></ion-icon>
+    <ion-icon name={{likeBtnName}} class="likeIcon" [ngStyle]="{'color': likeBtnColor}" (click)="likeThePost()"></ion-icon>
     <ion-label class="numberOfLikes">{{(receivedPostData|async)?.likes}}</ion-label>
     <ion-label class="commentsLabel">comments</ion-label>
     <ion-label class="numberOfComments">{{(receivedPostData|async)?.totalcomments}}</ion-label>

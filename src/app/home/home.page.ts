@@ -65,6 +65,8 @@ export class HomePage {
   commentButtonLabel : string 
   modalReady : boolean
 
+  likeBtnColor: string
+
 
   constructor(public toastController: ToastController,private router: Router,private fauth:AngularFireAuth,public modalController: ModalController,private db:AngularFirestore) {
   
@@ -127,11 +129,13 @@ export class HomePage {
             //this.showToastMessage("list:  "+recList+" likes: "+this.numberOfLikes+" index: "+recList.indexOf(this.todayDate))
             this.likedOrNot = true
             this.likeBtnName = "heart"
+            this.likeBtnColor = "#bc1e1b"
 
           }else{
            // this.showToastMessage("list:  " +recList+"  likes: "+this.numberOfLikes+" index: "+recList.indexOf(this.todayDate))
             this.likedOrNot = false
             this.likeBtnName = "heart-empty"
+            this.likeBtnColor = "#212121"
           }
           
         })

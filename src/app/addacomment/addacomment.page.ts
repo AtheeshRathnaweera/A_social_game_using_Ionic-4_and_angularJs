@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Router,NavigationExtras } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
@@ -103,9 +103,9 @@ export class AddacommentPage{
 
   addTheComment(){
     var todaydate = new Date();
+  
    // var todayDate = todaydate.getFullYear()+"-"+(todaydate.getMonth() + 1) +"-"+todaydate.getDate()
-   var addedtime = todaydate.getHours()+" : "+todaydate.getMinutes()+" : "+todaydate.getSeconds()
-
+    var addedtime = (todaydate.getHours()<10?'0':'')+todaydate.getHours()+" : "+(todaydate.getMinutes()<10?'0':'')+todaydate.getMinutes()+" : "+(todaydate.getSeconds()<10?'0':'')+todaydate.getSeconds()
 
     this.db.collection("users").doc(this.userComment.email).get().forEach((data)=>{
       this.userComment.name = data.get("name")
@@ -158,22 +158,23 @@ export class AddacommentPage{
     toast.present();
   }
 
-  getTheNumberOfLikesOfThePost(recId){
 
-    
-    
-    //this.commentsLikeHolder.
-  
-  }
 
-  viewTheStory(commentId){
+  viewTheStory(commentId,email){
 
-    this.showToastMessage("view the story"+commentId)
+    //this.showToastMessage("view the story"+commentId)
+
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+          commentId: commentId,
+          useremail: email
+      }
+    }
 
     this.modalController.dismiss({//dismiss the modal for go to the new 
       'dismissed': true
     }).then(()=>{
-      this.router.navigate(['viewthestory'])
+      this.router.navigate(['viewthestory'],navigationExtras)
     });
     //
 
