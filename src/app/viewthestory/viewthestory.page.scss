@@ -1,0 +1,74 @@
+ion-card{
+    height: 97%;
+    box-shadow: 5px 5px 5px 5px #999; 
+    -moz-box-shadow: 3px 3px 3px 3px #999;
+    -webkit-box-shadow: 3px 3px 3px 3px #999;
+}
+
+ion-card-header{
+    display: flex;
+    flex-direction: row;
+    box-shadow: 1px 1px 1px #999; 
+    -moz-box-shadow: 1px 1px 1px #999;
+    -webkit-box-shadow: 1px 1px 1px #999;
+}
+
+.commentData{
+    display: flex;
+    flex-direction: column;
+    width: 77%;
+    margin-left: 10px;
+    padding-right: 3px;
+}
+
+.votingSection{
+    position: relative;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    width: 3em;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    margin-right: 8px;
+}
+
+ion-avatar{
+    position: relative;
+    left: 0;
+    width: 20%;
+    max-width: 4em;
+    max-height: 4em;
+}
+
+.likeUp{
+    font-size: 1.8em;
+}
+
+.likeDown{
+    font-size: 1.8em;
+}
+
+.addedtime{
+    font-size: 0.8em;
+}
+
+.commentatorName{
+    font-size: 1.7em;
+    color: black;
+
+}
+
+.commentSection{
+    overflow-y: scroll;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 95%;
+    width: 100%;
+
+
+}
+
+.comment{
+    font-size: 1.1em;
+}

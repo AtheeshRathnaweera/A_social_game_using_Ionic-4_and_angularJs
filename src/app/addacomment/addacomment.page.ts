@@ -7,6 +7,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase/app';
+import { ModalController } from '@ionic/angular';
 import { enableDebugTools } from '@angular/platform-browser';
 
 export class userComment {
@@ -65,7 +66,7 @@ export class AddacommentPage{
   upVoteBtnColor: string
   downVoteBtnColor: string
 
-  constructor(public toastController: ToastController,private router: Router,private fauth:AngularFireAuth,private db:AngularFirestore) {
+  constructor(public modalController: ModalController,public toastController: ToastController,private router: Router,private fauth:AngularFireAuth,private db:AngularFirestore) {
     this.upVoteBtnColor = "#696969"
     this.downVoteBtnColor = "#696969"
     this.getCurrentUserData()
@@ -103,6 +104,7 @@ export class AddacommentPage{
   addTheComment(){
     var todaydate = new Date();
    // var todayDate = todaydate.getFullYear()+"-"+(todaydate.getMonth() + 1) +"-"+todaydate.getDate()
+   var addedtime = todaydate.getHours()+" : "+todaydate.getMinutes()+" : "+todaydate.getSeconds()
 
 
     this.db.collection("users").doc(this.userComment.email).get().forEach((data)=>{
@@ -120,7 +122,8 @@ export class AddacommentPage{
       likes: 0,
       useremail: this.userComment.email,
       username: this.userComment.name,
-      url: this.userComment.url
+      url: this.userComment.url,
+      addedtime: addedtime
     }).then(()=>{
       this.updateTheTotalCommentsValue(1,this.todayDate);
       this.userComment.comment = ""
@@ -163,8 +166,20 @@ export class AddacommentPage{
   
   }
 
-  voting(type,recPostId){
+  viewTheStory(commentId){
 
+    this.showToastMessage("view the story"+commentId)
+
+    this.modalController.dismiss({//dismiss the modal for go to the new 
+      'dismissed': true
+    }).then(()=>{
+      this.router.navigate(['viewthestory'])
+    });
+    //
+
+  }
+
+  voting(type,recPostId){
 
     this.checkExist(recPostId).then(()=>{
       if(this.userExist){

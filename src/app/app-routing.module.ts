@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
   { path: 'userprofile', loadChildren: './userprofile/userprofile.module#UserprofilePageModule' },
   { path: 'addacomment', loadChildren: './addacomment/addacomment.module#AddacommentPageModule' },
+  { path: 'viewthestory', loadChildren: './viewthestory/viewthestory.module#ViewthestoryPageModule' },
 ];
 
 @NgModule({

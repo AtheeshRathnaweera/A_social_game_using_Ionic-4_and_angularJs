@@ -18,16 +18,17 @@
     </div>
 --> 
 
-  <ion-virtual-scroll [items]="comments" approxItemHeight="'100px'">
+  <ion-virtual-scroll [items]="comments" approxItemHeight="'80px'">
     <div *virtualItem="let comment" > <!--Wrapping with a div is important-->
       <ion-card>
         <div class="likeHolder">
           <ion-avatar>
             <img src="{{comment.url}}">
           </ion-avatar>
-          <ion-icon name="arrow-dropup" class="likeUp" (click)="voting(1,comment.id)" [ngStyle]="{'color': upVoteBtnColor}"></ion-icon>
+         <!-- <ion-icon name="arrow-dropup" class="likeUp" (click)="voting(1,comment.id)" [ngStyle]="{'color': upVoteBtnColor}"></ion-icon> --> 
           <ion-label class="likeAmount">{{comment.likes}}</ion-label>
-          <ion-icon name="arrow-dropdown" class="likeDown" (click)="voting(-1,comment.id)" [ngStyle]="{'color': downVoteBtnColor}"></ion-icon>
+          <ion-icon name="eye" class="viewStory" (click)="viewTheStory(comment.id)"></ion-icon>
+          <!-- <ion-icon name="arrow-dropdown" class="likeDown" (click)="voting(-1,comment.id)" [ngStyle]="{'color': downVoteBtnColor}"></ion-icon>  -->
         </div>
         <div class="cardContent">
           <ion-label class="commentatorName">{{comment.username}}</ion-label>        
