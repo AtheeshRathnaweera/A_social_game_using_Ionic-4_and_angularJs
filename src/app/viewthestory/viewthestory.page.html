@@ -18,8 +18,10 @@
     </ion-card-header>
 
     <div class="commentSection">
-      <p class = "comment">{{(commentData|async)?.commenttext}}
-      </p>
+
+      <ion-textarea rows="30" cols="20"
+        value="{{(commentData|async)?.commenttext}}">
+      </ion-textarea>
 
     </div>
 

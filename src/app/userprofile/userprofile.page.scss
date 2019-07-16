@@ -9,6 +9,13 @@ ion-title{
    
 }
 
+ion-card{
+
+    box-shadow: 3px 3px 3px 3px #999; 
+    -moz-box-shadow: 3px 3px 3px 3px #999;
+    -webkit-box-shadow: 3px 3px 3px 3px #999;
+}
+
 
 .settingsIcon{
     font-size: 190%;
@@ -21,7 +28,7 @@ ion-title{
 .mainItemsHolder{
     align-items: center;
     //justify-content: center;
-    margin-top: 3rem;
+    margin-top: 2.5rem;
     margin-bottom: 3rem;
     align-content: center;
     height: 100%;
@@ -38,7 +45,28 @@ ion-title{
     font-size: 150%;
     margin-top: 2%;
     font-style: oblique;
-    margin-bottom: 3%;
+}
+
+.badgeText{
+    color: white;
+    font-size: 1em;
+}
+
+.badge{
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    min-width: 5.2em;
+    border-radius: 6px;
+    margin-bottom: 5%;
+    
+    
+}
+
+
+.activeDays{
+    margin-bottom: 6%;
 }
 
 .profileItem{

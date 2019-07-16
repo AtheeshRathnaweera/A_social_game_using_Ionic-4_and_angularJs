@@ -8,15 +8,26 @@
 
 
 <ion-content>
+  <ion-card>
   <div class="mainItemsHolder">
-    <ion-avatar class = "profileImage">
+    <ion-avatar class = "profileImage" (click)="presentPopover()">
       <img  src={{(userDataSet|async)?.profilePicUrl}}>
     </ion-avatar>
+
+  
+
     <ion-label class="userId">{{(userDataSet|async)?.name}}</ion-label> 
+  
+    <div class="badge" [ngStyle]="{'background-color': badgeColors[badgeNumber]}">
+      <ion-label class="badgeText">{{badgeTitles[badgeNumber]}}</ion-label> 
+    </div>
+
     <div class="profileItem">
         <ion-label>Since</ion-label>
-        <ion-label class="valueText" >{{ (userDataSet | async)?.since }}</ion-label>
+        <ion-label class="valueText">{{ (userDataSet | async)?.since }}</ion-label>
     </div>
+
+  
 
     <div class="profileItem">
         <ion-label >Total Comments</ion-label>
@@ -27,4 +38,5 @@
       <button class="logInBtn" ion-button (click)="logout()">Log out</button>
     </div>
   </div>
+  </ion-card>
 </ion-content>

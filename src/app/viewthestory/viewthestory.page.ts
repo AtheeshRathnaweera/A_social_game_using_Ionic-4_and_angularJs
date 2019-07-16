@@ -7,6 +7,9 @@ import { Observable, ObservableLike } from 'rxjs';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 import * as firebase from 'firebase/app';
+//import { Keyboard } from '@ionic-native/keyboard/ngx';
+
+import {Keyboard} from '@ionic-native/keyboard/ngx'
 
 interface userComment{
       commenttext: string;
@@ -44,8 +47,8 @@ export class ViewthestoryPage implements OnInit {
   upVoteBtnColor: string
   downVoteBtnColor: string
 
-  constructor(private route: ActivatedRoute,private toastController: ToastController,private db:AngularFirestore) { 
- 
+  constructor(private keyboard: Keyboard,private route: ActivatedRoute,private toastController: ToastController,private db:AngularFirestore) { 
+    //this.keyBoardOpenOrNot()//Set keyboard listner
   }
 
   ngOnInit() {
@@ -129,6 +132,14 @@ export class ViewthestoryPage implements OnInit {
 
   }
 
+  keyBoardOpenOrNot(){
+   /* if(this.Keyboard.isVisible){
+      this.showToastMessage("keyboard is visible")
+    }else{
+      this.showToastMessage("Keyboard is not visible")
+    }*/
+  }
+
   checkUserExistencyInVotedList(){
     this.db.collection("posts").doc(this.todayDate).collection("comments").doc(this.commentId).collection("votedlist").doc(this.userEmail).get().forEach((data)=>{
       if(data.exists){
@@ -165,5 +176,10 @@ export class ViewthestoryPage implements OnInit {
     }
 
   }
+
+  auto_grow(element) {
+    element.style.height = "5px";
+    element.style.height = (element.scrollHeight)+"px";
+}
 
 }

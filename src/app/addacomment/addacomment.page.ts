@@ -127,6 +127,7 @@ export class AddacommentPage{
     }).then(()=>{
       this.updateTheTotalCommentsValue(1,this.todayDate);
       this.userComment.comment = ""
+      this.updateTheUsersTotalComments(1)
      } 
     );
 
@@ -148,6 +149,19 @@ export class AddacommentPage{
       });
     }
    
+  }
+
+  updateTheUsersTotalComments(val){
+    if(val==1){
+      this.db.collection("users").doc(this.userComment.email).update({
+        totalComments: firebase.firestore.FieldValue.increment(1)
+      });
+    }else{
+      this.db.collection("users").doc(this.userComment.email).update({
+        totalComments: firebase.firestore.FieldValue.increment(-1)
+      });
+    }
+
   }
 
   async showToastMessage(message){
