@@ -65,16 +65,18 @@ export class RegisterPage {
           since: todayDate,
           totalComments: 0
 
-        }).then(function() {
-         // console.log("Document written with ID: ");
-         //Account created successfully
-          this.router.navigateByUrl('/login')
-
         }).catch(function(error) {
           console.error("Error adding document: ", error);
 
           this.showToastMessage('Error occured when saving data!',error.message)
         });
+
+        this.db.collection("users").doc(this.user.email).collection("likedposts").doc("liked").set({
+          postlist: []
+         }).then(function(){
+          this.showToastMessage("likedposts list created")
+          this.router.navigateByUrl('/login')
+         });
 
       }
 

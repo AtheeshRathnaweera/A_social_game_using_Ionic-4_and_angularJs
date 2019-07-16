@@ -7,9 +7,8 @@ import { Observable, ObservableLike } from 'rxjs';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 import * as firebase from 'firebase/app';
-//import { Keyboard } from '@ionic-native/keyboard/ngx';
 
-import {Keyboard} from '@ionic-native/keyboard/ngx'
+//import { Keyboard } from '@ionic-native/keyboard';
 
 interface userComment{
       commenttext: string;
@@ -27,7 +26,7 @@ interface voteCodeData{
 @Component({
   selector: 'app-viewthestory',
   templateUrl: './viewthestory.page.html',
-  styleUrls: ['./viewthestory.page.scss'],
+  styleUrls: ['./viewthestory.page.scss']
 })
 
 export class ViewthestoryPage implements OnInit {
@@ -47,9 +46,12 @@ export class ViewthestoryPage implements OnInit {
   upVoteBtnColor: string
   downVoteBtnColor: string
 
-  constructor(private keyboard: Keyboard,private route: ActivatedRoute,private toastController: ToastController,private db:AngularFirestore) { 
+  constructor(private route: ActivatedRoute,private toastController: ToastController,private db:AngularFirestore) { 
     //this.keyBoardOpenOrNot()//Set keyboard listner
+    
   }
+
+  
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -60,6 +62,8 @@ export class ViewthestoryPage implements OnInit {
  
     this.getCommentDataObservable()
     this.checkUserExistencyInVotedList()
+
+  
 
 
   }

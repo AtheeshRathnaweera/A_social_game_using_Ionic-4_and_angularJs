@@ -112,6 +112,8 @@ export class HomePage {
         //get user email  
         this.userEmail= user.email
 
+        
+
         //get today post data as well
         var todaydate = new Date();
         this.todayDate = todaydate.getFullYear()+"-"+(todaydate.getMonth() + 1) +"-"+todaydate.getDate()
@@ -125,17 +127,21 @@ export class HomePage {
         this.likedPostsDoc.valueChanges().forEach((datas)=>{
           var recList = datas.postlist
 
+          
+
           if(recList.includes(this.todayDate)){
             //this.showToastMessage("list:  "+recList+" likes: "+this.numberOfLikes+" index: "+recList.indexOf(this.todayDate))
             this.likedOrNot = true
             this.likeBtnName = "heart"
             this.likeBtnColor = "#bc1e1b"
+           
 
           }else{
            // this.showToastMessage("list:  " +recList+"  likes: "+this.numberOfLikes+" index: "+recList.indexOf(this.todayDate))
             this.likedOrNot = false
             this.likeBtnName = "heart-empty"
             this.likeBtnColor = "#212121"
+          
           }
           
         })
@@ -238,6 +244,8 @@ export class HomePage {
   }
 
   async getAllTheComments(){
+
+
 
     await this.db.collection("posts").doc(this.todayDate).collection("comments").get().forEach((docData)=>{
 
