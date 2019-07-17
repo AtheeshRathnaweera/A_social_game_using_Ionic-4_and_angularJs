@@ -10,17 +10,23 @@
             <ion-label class="addedtime">{{(commentData|async)?.addedtime}}</ion-label>
         </div>
         
-        <div class = "votingSection">
+        
+        <div class = "votingSection" [ngStyle]="{ 'display' : commentatorEmail == userEmail ? 'none': 'flex'}">
             <ion-icon name="arrow-dropup" class="likeUp" (click)="voting(1)" [ngStyle]="{ 'color': upVoteBtnColor}"></ion-icon>
             <ion-label class="likeAmount">{{(commentData|async)?.likes}}</ion-label>
             <ion-icon name="arrow-dropdown" class="likeDown" (click)="voting(-1)" [ngStyle]="{ 'color': downVoteBtnColor}"></ion-icon> 
+        </div>
+
+        <div class = "editingSection" [ngStyle]="{ 'display' : commentatorEmail == userEmail ? 'flex': 'none'}">
+          <ion-icon name="save" class="saveBtn" (click)="saveChanges()"></ion-icon>
+          <ion-icon name="trash" class="deleteBtn" (click)="deleteTheComment()"></ion-icon> 
         </div>
     </ion-card-header>
 
     <div class="commentSection">
 
-      <ion-textarea rows="13" cols="20"
-        value="{{(commentData|async)?.commenttext}}">
+      <ion-textarea rows="13" cols="20" [(ngModel)]="comment"
+        value="{{(commentData|async)?.commenttext}}" disabled = "commentatorEmail == userEmail ? 'true': 'false'">
       </ion-textarea>
 
     </div>

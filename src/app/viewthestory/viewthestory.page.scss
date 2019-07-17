@@ -27,12 +27,38 @@ ion-card-header{
 }
 
 .votingSection{
-
-    display: flex;
+    position: relative;
+    right: 0;
+   // display: flex;
     flex-direction: column;
-    width: 2.2em;
+    max-width: 2.2em;
     align-items: center;
     margin-right: 5px;
+}
+
+.editingSection{
+    position: relative;
+    right: 0;
+   // display: flex;//flex
+    flex-direction: column;
+    max-width: 2.2em;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    margin-right: 5px;
+}
+
+.saveBtn{
+    font-size:1.7em;
+    color: white;
+    margin-bottom: 0.4em;
+    
+
+}
+
+.deleteBtn{
+    font-size: 1.9em;
+    color: white;
 }
 
 ion-textarea{
@@ -40,16 +66,14 @@ ion-textarea{
     font-size: 1.1em;
     overflow-y: hidden;
     
-    
-    
 }
 
 ion-avatar{
     position: relative;
     left: 0;
     width: 22%;
-    max-width: 4.4em;
-    max-height: 4.4em;
+    max-width: 4.3em;
+    max-height: 4.3em;
     color: rgb(24, 126, 129);
     margin-top: 2.2%;
     align-items:center;

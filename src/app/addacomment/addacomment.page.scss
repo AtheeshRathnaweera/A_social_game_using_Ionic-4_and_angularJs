@@ -3,6 +3,8 @@ ion-content{
     flex-direction: column;
 }
 
+
+
 .commentingSection{
     position: fixed;
     bottom: 0;
@@ -38,13 +40,14 @@ ion-card{
     background-color: white;
     display: flex;
     flex-direction: row;
+    max-height: 118px;
 
 }
 
 .viewStory{
-    font-size: 1.5em;
+    font-size: 1.4em;
     margin-bottom: 8px;
-    margin-top: 6px;
+    margin-top: 4px;
     color: white;
 }
 
@@ -67,13 +70,6 @@ ion-avatar{
 
 }
 
-.timeBadge{
-    width: 30%;
-    font-size: 0.8em;
-    margin-top: 7px;
-
-}
-
 .likeHolder{
     display: flex;
     flex-direction: column;
@@ -86,20 +82,9 @@ ion-avatar{
 
 }
 
-.likeUp{
-    font-size: 2.2em;
-    
-
-}
-
-
-.likeDown{
-    font-size: 2.2em;
-   
-}
 
 .likeAmount{
-    font-size: 1.3em;
+    font-size: 1.2em;
     margin-top: 6px;
     color: white;
 }
@@ -108,12 +93,16 @@ ion-avatar{
 
     font-size: 1.5em;
     font-style: oblique;
-    color: black;
-    
+    color: black;  
 }
 
 .commentSection{
     margin-left: 0.3em;
+    margin-bottom: 0.3em;
+    margin-right: 0.2em;
+    text-overflow:ellipsis;
+    overflow: hidden;
+
 }
 
 ion-virtual-scroll{

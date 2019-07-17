@@ -52,18 +52,26 @@ export class AppComponent {
     this.router.events.subscribe(event =>{
 
       const url = this.router.url //current url
+
     
-      if (event instanceof NavigationEnd) {
+
+      if(url != "/home"){
+        this.showToast("Not In home.do anything.")
+      }else{
+        this.showToast("In home. ")
+      }
+    
+    /*  if (event instanceof NavigationEnd) {
       
         const isCurrentUrlSaved = this.navLinksArray.find((item) => {return item === url});
       
         if (!isCurrentUrlSaved) this.navLinksArray.push(url);
       
-      }// end event if stmt
+      }// end event if stmt */
       
     }) // end subscribe
 
-    this.hardwareBackButton();
+    //this.hardwareBackButton();
    
   }
 
@@ -72,6 +80,7 @@ export class AppComponent {
     this.platform.backButton.subscribe(() =>{
     
       if (this.navLinksArray.length > 1){
+        this.showToast("back button pressed")
        
         this.navLinksArray.pop();
     
@@ -81,7 +90,7 @@ export class AppComponent {
         this.router.navigate([url])
        
       }else{
-        this.showToast(this.navLinksArray.length+" number");
+       // this.showToast(this.navLinksArray.length+" number");
       }
     
    })
@@ -89,7 +98,7 @@ export class AppComponent {
 
   showToast = async(num) =>{
     const toast = await this.toastController.create({
-      message: 'Should be exit from the app! '+num,
+      message: num,
       duration: 2000
     });
     toast.present();

@@ -62,7 +62,8 @@
     "protractor": "~5.4.0",
     "ts-node": "~8.3.0",
     "tslint": "~5.17.0",
-    "typescript": "~3.1.6"
+    "typescript": "~3.1.6",
+    "cordova-plugin-ionic-keyboard": "^2.0.5"
   },
   "description": "An Ionic project",
   "cordova": {
@@ -73,7 +74,8 @@
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
-      }
+      },
+      "cordova-plugin-ionic-keyboard": {}
     },
     "platforms": [
       "android"

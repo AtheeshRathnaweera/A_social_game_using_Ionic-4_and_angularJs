@@ -181,7 +181,8 @@ export class AddacommentPage{
     let navigationExtras: NavigationExtras = {
       queryParams: {
           commentId: commentId,
-          useremail: email
+          useremail: this.userComment.email,
+          commentatorEmail: email
       }
     }
 

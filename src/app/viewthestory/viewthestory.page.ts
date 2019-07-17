@@ -40,14 +40,18 @@ export class ViewthestoryPage implements OnInit {
   commentId: string //store received comment id
 
   userEmail: string 
+  commentatorEmail: string
   userExist: boolean
   voteCode: number
 
   upVoteBtnColor: string
   downVoteBtnColor: string
 
+  comment: string
+
   constructor(private route: ActivatedRoute,private toastController: ToastController,private db:AngularFirestore) { 
     //this.keyBoardOpenOrNot()//Set keyboard listner
+  
     
   }
 
@@ -57,14 +61,29 @@ export class ViewthestoryPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.commentId = params.commentId
       this.userEmail = params.useremail
+      this.commentatorEmail = params.commentatorEmail
       
     });
  
     this.getCommentDataObservable()
     this.checkUserExistencyInVotedList()
 
-  
+  }
 
+  saveChanges(){
+
+    this.commentDataDoc.update({
+      commenttext: this.comment
+    }).then(()=>{
+      this.showToastMessage("Updated successfully!")
+    }).catch(()=>{
+      this.showToastMessage("Error occured. Please try again later.")
+    })
+
+  }
+
+  deleteTheComment(){
+   // this.commentDataDoc.delete()
 
   }
 
@@ -76,12 +95,13 @@ export class ViewthestoryPage implements OnInit {
     this.commentDataDoc = this.db.collection("posts").doc(this.todayDate).collection("comments").doc<userComment>(this.commentId)
     this.commentData= this.commentDataDoc.valueChanges();
 
+
   }
 
   async showToastMessage(message){
     const toast = await this.toastController.create({
       message: message,
-      duration: 3000
+      duration: 2000
     });
     toast.present();
   }
@@ -149,11 +169,11 @@ export class ViewthestoryPage implements OnInit {
       if(data.exists){
         this.userExist = true
         this.voteCode = data.get("vote")
-        this.showToastMessage("user exist in voted list"+this.userExist +"   "+this.voteCode)
+        this.showToastMessage("user exist in voted list"+this.userExist +"   "+this.voteCode+"  "+this.userEmail)
       }else{
         this.userExist = false
         this.voteCode = 0
-        this.showToastMessage("user not exist "+this.userExist+"  "+this.voteCode)
+        this.showToastMessage("user not exist "+this.userExist+"  "+this.voteCode+"  "+this.userEmail)
         
       }
     }).then(()=>{

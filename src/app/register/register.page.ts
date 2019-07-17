@@ -74,7 +74,6 @@ export class RegisterPage {
         this.db.collection("users").doc(this.user.email).collection("likedposts").doc("liked").set({
           postlist: []
          }).then(function(){
-          this.showToastMessage("likedposts list created")
           this.router.navigateByUrl('/login')
          });
 
