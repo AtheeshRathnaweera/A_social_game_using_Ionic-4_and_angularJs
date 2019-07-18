@@ -43,9 +43,7 @@ export class UserprofilePage implements OnInit{
   currentPopOver = null
 
   constructor(private platform: Platform,private fauth:AngularFireAuth,private db:AngularFirestore,private toastController:ToastController,private popoverController: PopoverController) { 
-    this.platform.backButton.subscribe(()=>{
-      this.showToastMessage("back byn")
-    })
+    
     this.getCurrentUserEmail()
   }
 

@@ -25,7 +25,7 @@
 
     <div class="commentSection">
 
-      <ion-textarea rows="13" cols="20" [(ngModel)]="comment" value="{{(commentData|async)?.commenttext}}" [disabled]="{{editAccess}}">
+      <ion-textarea rows="13" cols="20" [(ngModel)]="comment" value="{{(commentData|async)?.commenttext}}" [disabled]="editAccess">
       </ion-textarea>
 
     </div>

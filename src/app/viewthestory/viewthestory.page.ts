@@ -94,9 +94,9 @@ export class ViewthestoryPage implements OnInit {
  getCommentDataObservable(){
 
     if(this.userEmail == this.commentatorEmail){
-      this.editAccess = true
-    }else{
       this.editAccess = false
+    }else{
+      this.editAccess = true
     }
     var todaydate = new Date();
     this.todayDate = todaydate.getFullYear()+"-"+(todaydate.getMonth() + 1) +"-"+todaydate.getDate()

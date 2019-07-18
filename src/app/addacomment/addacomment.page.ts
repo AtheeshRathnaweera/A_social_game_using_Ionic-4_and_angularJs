@@ -58,7 +58,7 @@ export class AddacommentPage{
 
   commentsString: Array<string>
 
-  comments//store the data
+  comments//store the data that will receive from the home page
 
   userExist : boolean
   voteCode: number
@@ -78,18 +78,7 @@ export class AddacommentPage{
    // this.getAllTheComments()
   }
 
-  validateTheComment(){
-
-    if(this.userComment.comment.trim().length == 0){
-      this.showToastMessage("Invalid comment   "+this.userComment.comment)
-    }else{
-     // this.showToastMessage("Valid comment   "+this.userComment.comment)
-      this.addTheComment()
-      //store the comment in firestore
-
-    }
-   
-  }
+ 
 
   getCurrentUserData(){
     this.fauth.authState.subscribe((user)=>{
@@ -111,11 +100,6 @@ export class AddacommentPage{
       this.userComment.name = data.get("name")
       this.userComment.url = data.get("profilePicUrl")
    }).then(()=>{
-
-    var vote = {
-        email: this.userComment.email,
-        vote: 0
-    }
 
     this.db.collection("posts").doc(this.todayDate).collection("comments").add({
       commenttext: this.userComment.comment,
@@ -172,11 +156,19 @@ export class AddacommentPage{
     toast.present();
   }
 
+  addANewCommentPage(){
+
+    this.modalController.dismiss({//dismiss the modal for go to the new 
+      'dismissed': true
+    }).then(()=>{
+      this.router.navigate(['addsavethenewcomment'])
+    });
+
+  }
+
 
 
   viewTheStory(commentId,email){
-
-    //this.showToastMessage("view the story"+commentId)
 
     let navigationExtras: NavigationExtras = {
       queryParams: {
@@ -186,77 +178,16 @@ export class AddacommentPage{
       }
     }
 
-    this.modalController.dismiss({//dismiss the modal for go to the new 
+    this.modalController.dismiss({//dismiss the modal for go to the new page
       'dismissed': true
     }).then(()=>{
       this.router.navigate(['viewthestory'],navigationExtras)
     });
-    //
-
-  }
-
-  voting(type,recPostId){
-
-    this.checkExist(recPostId).then(()=>{
-      if(this.userExist){
-      
-        if((type == 1 && this.voteCode == -1) || (type == -1 && this.voteCode == 1)){
-          //delete the doc
-          this.updateTheLikesAmountOfTheComment(recPostId,type).then(()=>{
-            this.deleteTheDoc(recPostId)
-          })
-         
-        }else{
-          //do nothing
-        }
-
-      }else{
-        this.updateTheLikesAmountOfTheComment(recPostId,type).then(()=>{
-          this.createTheVotedDoc(type,recPostId)
-        })
-       
-      }
-     
-    })
-
-  }
-
-  async updateTheLikesAmountOfTheComment(postId,voteVal){
-    await this.db.collection("posts").doc(this.todayDate).collection("comments").doc(postId).update({
-      likes : firebase.firestore.FieldValue.increment(voteVal)
-    })
+    
 
   }
 
 
-  createTheVotedDoc(voteType,postId){
-    this.db.collection("posts").doc(this.todayDate).collection("comments").doc(postId)
-                .collection("votedlist").doc(this.userComment.email).set({
-                  vote: voteType
-                })
-   }
-
-  
-
-  deleteTheDoc(postId){
-    this.db.collection("posts").doc(this.todayDate).collection("comments").doc(postId)
-                .collection("votedlist").doc(this.userComment.email).delete()
-  }
-
-
-
-  async checkExist(postId){
-    await this.db.collection("posts").doc(this.todayDate).collection("comments").doc(postId)
-                .collection("votedlist").doc(this.userComment.email).get().forEach((data)=>{
-                  if(data.exists){
-                    this.userExist = true
-                    this.voteCode = data.get("vote")
-                  }else{
-                    this.userExist = false
-                  }
-                })
-
-  }
 
 
 

@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'userprofile', loadChildren: './userprofile/userprofile.module#UserprofilePageModule' },
   { path: 'addacomment', loadChildren: './addacomment/addacomment.module#AddacommentPageModule' },
   { path: 'viewthestory', loadChildren: './viewthestory/viewthestory.module#ViewthestoryPageModule' },
+  { path: 'addsavethenewcomment', loadChildren: './addsavethenewcomment/addsavethenewcomment.module#AddsavethenewcommentPageModule' },
 ];
 
 @NgModule({

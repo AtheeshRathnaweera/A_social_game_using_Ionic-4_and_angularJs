@@ -78,7 +78,7 @@ export class HomePage {
    
     this.getCurrentUserEmail()
 
-    this.platform.backButton.unsubscribe()
+   
 
    // this.getAllTheComments()
    

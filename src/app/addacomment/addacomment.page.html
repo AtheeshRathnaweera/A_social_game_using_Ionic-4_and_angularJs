@@ -36,16 +36,16 @@
     </div>
   </ion-virtual-scroll>
 
-   <div class="commentingSection">
+  <!-- <div class="commentingSection">
       <ion-textarea [(ngModel)]="userComment.comment"  placeholder="add a comment.."></ion-textarea>
       <ion-icon name="send" class="commentSendIcon" (click)="validateTheComment()"></ion-icon>
-  </div> 
+  </div>  -->
 
-  <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button  color="danger">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button  color="danger" (click)="addANewCommentPage()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
-  </ion-fab> -->
+  </ion-fab>
 
  
   

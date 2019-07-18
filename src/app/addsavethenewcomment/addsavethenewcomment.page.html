@@ -1,0 +1,25 @@
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+
+        <div class="commentData">
+            <ion-label class="commentatorName">{{displayDate}}</ion-label>        
+            <ion-label class="addedtime">{{useremail}}</ion-label>
+        </div>
+
+  
+        <ion-icon name="save" class="saveBtn" (click)="validateTheComment()"></ion-icon>
+        
+    </ion-card-header>
+
+    <div class="commentSection">
+
+      <ion-textarea rows="13" cols="20" [(ngModel)]="comment">
+      </ion-textarea>
+
+    </div>
+
+  </ion-card>
+
+</ion-content>
