@@ -49,6 +49,8 @@ export class ViewthestoryPage implements OnInit {
 
   comment: string
 
+  editAccess : boolean 
+
   constructor(private route: ActivatedRoute,private toastController: ToastController,private db:AngularFirestore) { 
     //this.keyBoardOpenOrNot()//Set keyboard listner
   
@@ -64,6 +66,8 @@ export class ViewthestoryPage implements OnInit {
       this.commentatorEmail = params.commentatorEmail
       
     });
+
+   
  
     this.getCommentDataObservable()
     this.checkUserExistencyInVotedList()
@@ -88,6 +92,12 @@ export class ViewthestoryPage implements OnInit {
   }
 
  getCommentDataObservable(){
+
+    if(this.userEmail == this.commentatorEmail){
+      this.editAccess = true
+    }else{
+      this.editAccess = false
+    }
     var todaydate = new Date();
     this.todayDate = todaydate.getFullYear()+"-"+(todaydate.getMonth() + 1) +"-"+todaydate.getDate()
 

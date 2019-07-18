@@ -18,6 +18,7 @@ import { async } from 'q';
 export class AppComponent {
 
   navLinksArray = [];// store route links as the user navigates the app
+  currentUrl: string
 
   constructor(
     private platform: Platform,
@@ -28,7 +29,7 @@ export class AppComponent {
     public toastController: ToastController
   ) {
     this.initializeApp();
-    this.handlingBackButton();
+   // this.handlingBackButton();
   
   }
 
@@ -48,53 +49,53 @@ export class AppComponent {
 
   }
 
-  handlingBackButton() {
+ /* handlingBackButton() {
     this.router.events.subscribe(event =>{
 
-      const url = this.router.url //current url
-
+      this.currentUrl = this.router.url //current url
+      this.showToast(this.currentUrl+"  "+this.navLinksArray.length)
     
-
-      if(url != "/home"){
-        this.showToast("Not In home.do anything.")
-      }else{
-        this.showToast("In home. ")
-      }
-    
-    /*  if (event instanceof NavigationEnd) {
+      if (event instanceof NavigationEnd) {
       
-        const isCurrentUrlSaved = this.navLinksArray.find((item) => {return item === url});
+        const isCurrentUrlSaved = this.navLinksArray.find((item) => {return item === this.currentUrl});
       
-        if (!isCurrentUrlSaved) this.navLinksArray.push(url);
+        if (!isCurrentUrlSaved) this.navLinksArray.push(this.currentUrl);
       
-      }// end event if stmt */
+      }// end event if stmt 
       
     }) // end subscribe
 
-    //this.hardwareBackButton();
+    if(this.currentUrl == "/home"){
+      this.platform.backButton.unsubscribe()
+    }else{
+      this.hardwareBackButton();
+    }
+
    
-  }
+  } */
 
-  hardwareBackButton (){
-
+ /* hardwareBackButton (){
     this.platform.backButton.subscribe(() =>{
     
-      if (this.navLinksArray.length > 1){
+      if ((this.navLinksArray.length > 1)){
         this.showToast("back button pressed")
        
         this.navLinksArray.pop();
     
         const index = this.navLinksArray.length + 1;
-        const url = this.navLinksArray[index];
+        var url = this.navLinksArray[index];
     
         this.router.navigate([url])
        
       }else{
-       // this.showToast(this.navLinksArray.length+" number");
+       this.showToast(this.navLinksArray.length+" array is empty");
       }
     
    })
-  }
+    
+
+
+  } */
 
   showToast = async(num) =>{
     const toast = await this.toastController.create({

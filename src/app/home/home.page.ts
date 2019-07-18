@@ -8,6 +8,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase/app';
+import { Platform} from '@ionic/angular';
 
 
 import { AddacommentPage } from '../addacomment/addacomment.page';
@@ -68,7 +69,7 @@ export class HomePage {
   likeBtnColor: string
 
 
-  constructor(public toastController: ToastController,private router: Router,private fauth:AngularFireAuth,public modalController: ModalController,private db:AngularFirestore) {
+  constructor( private platform: Platform,public toastController: ToastController,private router: Router,private fauth:AngularFireAuth,public modalController: ModalController,private db:AngularFirestore) {
   
     this.topComment.commenttext = "No comments yet"
     this.commentButtonLabel = "Preparing comments ..."
@@ -77,9 +78,13 @@ export class HomePage {
    
     this.getCurrentUserEmail()
 
+    this.platform.backButton.unsubscribe()
+
    // this.getAllTheComments()
    
   }
+
+
 
   async presentModal() {
 

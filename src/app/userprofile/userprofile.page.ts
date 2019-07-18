@@ -8,6 +8,8 @@ import { ToastController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { PopoverController } from '@ionic/angular';
 
+import { Platform} from '@ionic/angular';
+
 //import { PopoverComponent } from '../../component/popover/popover.component';
 
 
@@ -40,7 +42,10 @@ export class UserprofilePage implements OnInit{
 
   currentPopOver = null
 
-  constructor(private fauth:AngularFireAuth,private db:AngularFirestore,private toastController:ToastController,private popoverController: PopoverController) { 
+  constructor(private platform: Platform,private fauth:AngularFireAuth,private db:AngularFirestore,private toastController:ToastController,private popoverController: PopoverController) { 
+    this.platform.backButton.subscribe(()=>{
+      this.showToastMessage("back byn")
+    })
     this.getCurrentUserEmail()
   }
 
