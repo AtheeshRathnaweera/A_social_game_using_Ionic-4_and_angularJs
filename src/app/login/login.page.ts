@@ -64,7 +64,9 @@ export class LoginPage {
         );
         if (r) {
           console.log("Successfully logged in!");
-          this.router.navigate(["home"])
+          this.router.navigate(["home"]);
+          
+        
         }
   
       } catch (err) {
@@ -82,6 +84,8 @@ export class LoginPage {
     }
     
   }
+
+  
 
 
 }

@@ -117,8 +117,6 @@ export class HomePage {
         //get user email  
         this.userEmail= user.email
 
-        
-
         //get today post data as well
         var todaydate = new Date();
         this.todayDate = todaydate.getFullYear()+"-"+(todaydate.getMonth() + 1) +"-"+todaydate.getDate()
@@ -249,7 +247,6 @@ export class HomePage {
   }
 
   async getAllTheComments(){
-
 
 
     await this.db.collection("posts").doc(this.todayDate).collection("comments").get().forEach((docData)=>{

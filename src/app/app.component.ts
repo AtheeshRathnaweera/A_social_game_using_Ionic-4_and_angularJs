@@ -29,7 +29,9 @@ export class AppComponent {
     public toastController: ToastController
   ) {
     this.initializeApp();
+    //this.handlingRoutes()
    // this.handlingBackButton();
+   
   
   }
 
@@ -46,6 +48,14 @@ export class AppComponent {
         }
       })
     });
+
+  }
+
+  handlingRoutes(){
+    this.router.events.subscribe(event=>{
+      let current = this.router.url
+     
+    })
 
   }
 

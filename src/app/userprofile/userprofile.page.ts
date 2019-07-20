@@ -6,9 +6,10 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import * as firebase from 'firebase/app';
 import { ToastController } from '@ionic/angular';
 import { Observable } from 'rxjs';
-import { PopoverController } from '@ionic/angular';
 
-import { Platform} from '@ionic/angular';
+import { UserLoggedInService } from '../api/user-logged-in.service';
+import { Router } from '@angular/router';
+
 
 //import { PopoverComponent } from '../../component/popover/popover.component';
 
@@ -42,18 +43,34 @@ export class UserprofilePage implements OnInit{
 
   currentPopOver = null
 
-  constructor(private platform: Platform,private fauth:AngularFireAuth,private db:AngularFirestore,private toastController:ToastController,private popoverController: PopoverController) { 
+  constructor(private router: Router,private fauth:AngularFireAuth,private db:AngularFirestore,private toastController:ToastController,private userService:UserLoggedInService) { 
     
     this.getCurrentUserEmail()
   }
 
   ngOnInit(){
+    
    
   }
 
   logout() {
-    this.fauth.auth.signOut();
+    this.fauth.auth.signOut().then(()=>{
+      this.router.navigate(['login'])
+    });
+    
   }
+
+  check(){
+    //let res : boolean
+    
+    this.userService.checkLoggedIn().then((data)=>{
+      this.showToastMessage("received : "+data)
+    })
+
+    
+  }
+
+
 
   /*async presentPopover(ev: any) {
     this.showToastMessage("show pop over method.")

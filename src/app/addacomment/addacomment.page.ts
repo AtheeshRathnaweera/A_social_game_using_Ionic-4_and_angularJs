@@ -178,11 +178,11 @@ export class AddacommentPage{
       }
     }
 
-    this.modalController.dismiss({//dismiss the modal for go to the new page
-      'dismissed': true
-    }).then(()=>{
-      this.router.navigate(['viewthestory'],navigationExtras)
-    });
+    this.router.navigate(['viewthestory'],navigationExtras).then(()=>{
+      this.modalController.dismiss({//dismiss the modal for go to the new page
+        'dismissed': true
+      })
+    })
     
 
   }

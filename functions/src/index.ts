@@ -27,7 +27,6 @@ export const getData = functions.https.onRequest((request,response)=>{
     let matchFound = false
 
     let recData = testValue.get("postlist")
-
     console.log(recData)
     console.log(recData.length+" matchFound: "+matchFound)
 
