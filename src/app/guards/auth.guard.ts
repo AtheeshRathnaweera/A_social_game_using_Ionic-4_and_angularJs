@@ -9,6 +9,10 @@ import { AngularFireAuth } from '@angular/fire/auth';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate{
+  //this is used to display the login screen by validating whether the user logged in or not
+  //loggedin ----> login screen cannot be seen
+  //loggedout ---> login screen can be seen
+  //important for avoid to go to the login screen from the home screen
 
   result: boolean
 

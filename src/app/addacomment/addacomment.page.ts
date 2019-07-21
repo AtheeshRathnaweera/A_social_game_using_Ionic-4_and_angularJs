@@ -54,8 +54,6 @@ export class AddacommentPage{
 
   todayDate: string //store todaydate
 
-  //comments: singleComment[]
-
   commentsString: Array<string>
 
   comments//store the data that will receive from the home page

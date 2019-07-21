@@ -248,7 +248,6 @@ export class HomePage {
 
   async getAllTheComments(){
 
-
     await this.db.collection("posts").doc(this.todayDate).collection("comments").get().forEach((docData)=>{
 
       docData.forEach((d)=>{
@@ -269,8 +268,12 @@ export class HomePage {
       this.showToastMessage("total comments : "+ this.comments.length )
 
     })
+
+    
    
   }
+
+  
 
   getTheHighestRatedComment(){
 
